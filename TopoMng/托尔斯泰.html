@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <title>DIV CSS之仿DreamWeaver图形菜单</title>
+    <style>
+        .icon {
+            display: inline-block;
+            width: 20px; height: 20px;
+            overflow: hidden;
+        }
+        .icon-del {
+            background: url(delete.png) no-repeat center;
+        }
+        .icon > .icon {
+            position: relative;
+            left: -20px;
+            border-right: 20px solid transparent;
+            -webkit-filter: drop-shadow(20px 0);
+            filter: drop-shadow(20px 0);
+        }
+
+
+    </style>
+</head>
+<body>
+<p><strong>原始图标</strong></p>
+<i class="icon icon-del"></i>
+<p><strong>可以变色的图标</strong></p>
+<i class="icon"><i class="icon icon-del"></i></i>
+
+
+</body>
+</html>

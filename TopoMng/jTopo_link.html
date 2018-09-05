@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
+    <meta name="Viewport" content="width=device-width; user-scaleable=no; initial-scale=1.0"/>
+    <title>jTopo Demo</title>
+    <meta name="description" content="GWTOPO">
+    <meta name="keyword" content="GWTOPO">
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <script src="../js/utils/jquery-3.3.1.min.js"></script>
+    <script src="js/topoIcon.js"></script>
+    <script src="js/topoTools.js"> </script>
+
+    <style>
+        *{margin:0px;padding:0px;}
+        #TopoToolBar{  padding:0px; margin-right: 40px;}  /*background:#5F768B; */
+        #TopoToolBar ul{repeat-x left top; padding:1px 1px;}
+        #TopoToolBar li{float:left;padding:1px 4px;}
+        #TopoToolBar a:link,a:visited{float:left;display:block; padding:1px 4px;}
+        #TopoToolBar a:hover{no-repeat left top; float:left; display:block;}
+        #TopoToolBar a:active{no-repeat left top; float:left; display:block;}
+        .topo_Tools{
+            position: absolute;
+            top: 40px;
+            right: 0;
+            z-index: 10;
+        }
+       .topo_Tools div{
+            width:220px;
+            margin:0px 0px 0px auto;
+            background:#fff;
+            height:130px;
+            border: solid 1px #b3b3b3;
+            border-top:0px;
+            display:block;
+            white-space:nowrap;
+            overflow:auto;
+        }
+        .topo_Tools p{
+            width:220px;
+            height:25px;
+            background:#b3b3b3;
+            text-align:center;
+            cursor:pointer;
+        }
+
+        .topo_Tools li{
+            margin:0px 0px 0px auto;
+            width:19%;
+            height:40px;
+            display:inline-block;
+            float:left;
+        }
+
+        .selected li{
+            border: #0000cc;
+            margin: 1px;
+        }
+
+        /*手动编排收缩切换*/
+        .dislpayTools{position: absolute;top: 0;bottom: 0;right:20px;width:0px; height:100%;z-index:10}
+        .dislpayTools a{ position:absolute; display:block; width:17px; height:61px;top:30%; margin-top:-30px;outline:none}
+        .dislpayTools a.open{ background-position:right 0}
+        .dislpayTools a:hover{ text-decoration:none; background-position:left -61px}
+        .dislpayTools a.open:hover{background-position:left 0}
+        .dislpayTools a{background:url(../resource/icon_arrow.png) no-repeat 0 0;background-position:right -61px}
+
+        .dislpayTools a.open{right:203px;}
+
+        #contextmenu {
+            border: 1px solid #aaa;
+            border-bottom: 0;
+            background: #eee;
+            position: absolute;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+        #contextmenu li a {
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid #aaa;
+            cursor: pointer;
+        }
+        #contextmenu li a:hover {
+            background: #fff;
+        }
+        .border{border:1px solid #1f1f1f;}
+
+        #toolTip{
+            border: 1px solid #b2c6cd;
+            border-radius: 3px;
+            background: #e0e0e0;
+            position: absolute;
+            color: #1890ff;
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+            display: none;
+            width: auto;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/utils/jtopo-0.4.8-min.js"></script>
+    <script type="text/javascript" src="../js/utils/jtopoBase.js"></script>
+    <script type="text/javascript" src="../js/page/jdataBase.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/infrastructure.js"></script>
+    <!--<script type="text/javascript" src="toolbar.js"></script>-->
+
+
+    <script id='code'>
+
+        var g_CurStage;
+        var g_CurSence;
+        var g_tmpScene = null; //for build back image
+        var g_tmpStage = null; //for build back image
+        var g_BasePos;
+        var tmpData;
+        var tmpDataStatus = 0;
+        var tmpLineAllow = false;
+        var tmpPolyLineAllow = false;
+
+        function displaytools(obj){
+            if($(obj).hasClass("open")){
+                $(obj).removeClass("open");
+                $("#tools").hide();
+            } else {
+                $(obj).addClass("open");
+                $("#tools").show();
+            }
+        }
+
+        function getScrollTop(){
+            var scrollTop=0;
+            if(document.documentElement&&document.documentElement.scrollTop){
+                scrollTop=document.documentElement.scrollTop;
+            }else if(document.body){
+                scrollTop=document.body.scrollTop;
+            }
+            return scrollTop;
+        }
+        document.onscroll = function(){
+            $("#iconArrow").css("top",getScrollTop());
+            $("#tools").css("padding-top",getScrollTop());
+        }
+        $(document).ready(function () {
+            //出入允许拖拽节点的父容器，一般是ul外层的容器
+            drag.init('right');
+
+           // 加载Icon背景
+            PreLoadImageResoure();
+            InitLoadTopo();
+
+            $("#contextmenu a").click(function(){
+                var text = $(this).text();
+
+                if(text == '删除该节点'){
+                    scene.remove(currentNode);
+                    currentNode = null;
+                }/*if(text == '撤销上一次操作'){
+                    currentNode.restore();
+                }else{
+                    currentNode.save();
+                }
+
+                if(text == '更改颜色'){
+                    currentNode.fillColor = JTopo.util.randomColor();
+                }else if(text == '顺时针旋转'){
+                    currentNode.rotate += 0.5;
+                }else if(text == '逆时针旋转'){
+                    currentNode.rotate -= 0.5;
+                }else if(text == '放大'){
+                    currentNode.scaleX += 0.2;
+                    currentNode.scaleY += 0.2;
+                }else if(text == '缩小'){
+                    currentNode.scaleX -= 0.2;
+                    currentNode.scaleY -= 0.2;
+                }*/
+                $("#contextmenu").hide();
+            });
+        });
+
+    </script>
+</head>
+
+
+<body>
+<ul id="toolTip"></ul>
+<ul id="contextmenu" style="display:none;">
+    <!--<li><a>顺时针旋转</a></li>
+    <li><a>逆时针旋转</a></li>
+    <li><a>更改颜色</a></li>
+    <li><a>放大</a></li>
+    <li><a>缩小</a></li>
+    <li><a>撤销上一次操作</a></li>-->
+    <li><a>删除该节点</a></li>
+</ul>
+<nav class="breadcrumb">
+    <div class="f-l">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 拓扑编排
+        <span id="navLink"></span>
+    </div>
+    <div class="f-r">
+        <a class="btn btn-success radius" style="line-height:1.6em;margin-top:3px"
+           href="javascript:location.replace(location.href);" title="刷新"><i
+                class="Hui-iconfont">&#xe68f;</i></a>
+    </div>
+
+    <div class="f-r" width="20px" style="margin-right: 40px">
+
+        <a title="展开工具条" onclick="ToolBarTagle()"><img id="toolcmd" status="open" src="../resource/icon/config-show.png" width="20px"  height="20px" alt="工具条"
+                                                    align="absmiddle"/></a>
+
+    </div>
+
+    <div id="TopoToolBar" style="width: 0px">
+        <ul>
+            <li><img src="../resource/icon/eye-minus.png" alt="隐藏侧边栏" title="隐藏侧边栏" width="20px"  height="20px" align="absmiddle"/></li>
+            <li><img src="../resource/icon/font-size.png" alt="设置字体" title="设置字体" width="20px"  height="20px" align="absmiddle"/></li>
+            <li><img src="../resource/icon/del-backimg.png" alt="删除背景" title="删除背景" width="20px"  height="20px" align="absmiddle" onclick="removeBkimg()"/></li>
+            <li><img src="../resource/icon/zhexian.png" alt="折线" title="折线连接"  width="20px"  height="20px" align="absmiddle"/></li>
+            <li><img src="../resource/icon/save.png" alt="保存" title="保存拓扑" width="20px"  height="20px" align="absmiddle"/></li>
+        </ul>
+    </div>
+</nav>
+
+<textarea id="textfield" style="display:none;width: 100px;height: 25px; position: absolute;"
+          onkeydown="if(event.keyCode==13)this.blur();"></textarea>
+
+    <div class="wrap_div">
+
+        <div >
+            <div class="left">
+                <ul id="menu">
+
+                </ul>
+            </div>
+
+            <div class="right">
+                <div id="content" style="float: left;width: 1300px">
+                    <canvas id="canvas"></canvas>
+
+                </div>
+                <div id="content1" style="float: left;width: 100px">
+                    <canvas id="canvas_bkimg"></canvas>
+
+                </div>
+                <div class="dislpayTools hidden-xs" style="float: right;" id="iconArrow">
+                    <a class="pngfix" href="javascript:void(0);" onClick="displaytools(this)"></a>
+                </div>
+                <div class="topo_Tools" style="float: right;display: none" id="tools">
+
+                </div>
+            </div>
+
+
+        </div>
+        <div id="clear" style="width:850px;height:350px"></div>
+    </div>
+
+
+<script type="text/javascript">
+
+//手动编排功能
+
+//拖拽
+    var drag = {
+
+        class_name : null,  //允许放置的容器
+        permitDrag : false,	//是否允许移动标识
+
+        _x : 0,             //节点x坐标
+        _y : 0,			    //节点y坐标
+        _left : 0,          //光标与节点坐标的距离
+        _top : 0,           //光标与节点坐标的距离
+
+        old_elm : null,     //拖拽原节点
+        tmp_elm : null,     //跟随光标移动的临时节点
+        new_elm : null,     //拖拽完成后添加的新节点
+
+        //初始化
+        init : function (className){
+
+            //允许拖拽节点的父容器的classname(可按照需要，修改为id或其他)
+            drag.class_name = className;
+
+
+
+            //监听鼠标按下事件，动态绑定要拖拽的节点（因为节点可能是动态添加的）
+            $('.' + drag.class_name).on('mousedown', 'img', function(event){
+                if(($(this).attr("id") != "line") &&
+                    ($(this).attr("id") != "NetDevice") &&
+                    ($(this).attr("id") != "HostDevice") &&
+                    ($(this).attr("id") != "TopoBkImg") &&
+                    ($(this).attr("id") != "AreaDevice") )
+                    return;
+
+                //准备画线
+                if($(this).attr("id") == "line")
+                {
+                    //$(this).parent().parent().addClass("selected");
+                    if($(this).hasClass("border")){
+                        $(this).removeClass('border');
+                        tmpLineAllow = false;
+                    }
+                    else {
+                        $(this).addClass('border');
+                        tmpLineAllow = true;
+                        tmpPolyLineAllow = false;
+                        $("#polyline").attr("src", "../resource/polyline.bmp");
+                    }
+                    return;
+                }
+                if($(this).attr("id") == "polyline")
+                {
+                    if($(this).hasClass("border")){
+                        $(this).removeClass('border');
+                        tmpPolyLineAllow = false;
+                    }
+                    else {
+                        $(this).addClass('border');
+                        tmpPolyLineAllow = true;
+                        tmpLineAllow = false;
+                        $("#line").attr("src", "../resource/line.bmp");
+                    }
+                    return;
+                }
+                //当在允许拖拽的节点上监听到点击事件，将标识设置为可以拖拽
+                drag.permitDrag = true;
+                //获取到拖拽的原节点对象
+                drag.old_elm = $(this);
+                //执行开始拖拽的操作
+                drag.mousedown(event);
+                return false;
+            });
+
+            //监听鼠标移动
+            $(document).mousemove(function(event){
+                //判断拖拽标识是否为允许，否则不进行操作
+                if(!drag.permitDrag) return false;
+                //执行移动的操作
+                drag.mousemove(event);
+                return false;
+            });
+
+            //监听鼠标放开
+            $(document).mouseup(function(event){
+                //判断拖拽标识是否为允许，否则不进行操作
+                if(!drag.permitDrag) return false;
+                //拖拽结束后恢复标识到初始状态
+                drag.permitDrag = false;
+                //执行拖拽结束后的操作
+                drag.mouseup(event);
+                return false;
+            });
+
+        },
+
+        //按下鼠标 执行的操作
+        mousedown : function (event){
+            //1.克隆临时节点，跟随鼠标进行移动
+            drag.tmp_elm = $(drag.old_elm).clone();
+
+            //2.计算 节点 和 光标 的坐标
+            drag._x = $(drag.old_elm).offset().left;
+            drag._y = $(drag.old_elm).offset().top;
+
+            var e = event || window.event;
+            drag._left = e.pageX - drag._x;
+            drag._top = e.pageY - drag._y;
+
+            //3.修改克隆节点的坐标，实现跟随鼠标进行移动的效果
+            $(drag.tmp_elm).css({
+                'position' : 'absolute',
+                'background-color' : '#FF8C69',
+                'left' : drag._x,
+                'top' : drag._y,
+            });
+
+            //4.添加临时节点
+            console.log($(drag.old_elm).parent());
+            console.log(drag.tmp_elm);
+            tmp = $(drag.old_elm).parent().append(drag.tmp_elm);
+            console.log(tmp);
+            drag.tmp_elm = $(tmp).find(drag.tmp_elm);
+            $(drag.tmp_elm).css('cursor', 'move');
+
+        },
+
+        //移动鼠标 执行的操作
+        mousemove : function (event){
+            //2.计算坐标
+            var e = event || window.event;
+            var x = e.pageX - drag._left;
+            var y = e.pageY - drag._top;
+            var maxL = $(document).width() - $(drag.old_elm).outerWidth();
+            var maxT = $(document).height() - $(drag.old_elm).outerHeight();
+            //不允许超出浏览器范围
+            x = x < 0 ? 0: x;
+            x = x > maxL ? maxL: x;
+            y = y < 0 ? 0: y;
+            y = y > maxT ? maxT: y;
+
+            //3.修改克隆节点的坐标
+            $(drag.tmp_elm).css({
+                'left' : x,
+                'top' : y,
+            });
+
+        },
+
+        //放开鼠标 执行的操作
+        mouseup : function (event){
+            console.log('我被mouseup了');
+            //判断设备类型
+            var calssName = $(drag.tmp_elm).attr("id");
+            var tmpName = $(drag.tmp_elm).attr("title");
+            var imgSrc = $(drag.tmp_elm).attr("src");
+            var image = new Image();
+            image.src = imgSrc;
+
+            //移除临时节点
+            $(drag.tmp_elm).remove();
+
+            //判断所在区域是否允许放置节点
+            var e = event || window.event;
+
+            $.each($('.' + drag.class_name + ' canvas'), function(index, value){
+
+                //获取容器的坐标范围 (区域)
+                var box_x = $(value).offset().left;     //容器左上角x坐标
+                var box_y = $(value).offset().top;      //容器左上角y坐标
+                var box_width = $(value).outerWidth();  //容器宽
+                var box_height = $(value).outerHeight();//容器高
+
+                //判断放开鼠标位置是否想允许放置的容器范围内
+                if(e.pageX > box_x && e.pageX < box_x+1300 && e.pageY > box_y && e.pageY < box_y+box_height){
+
+                    //判断是否不在原来的容器下（使用坐标进行判断：x、y任意一个坐标不等于原坐标，则表示不是原来的容器）
+                    if($(value).offset().left !== drag.old_elm.parent().offset().left
+                        || $(value).offset().top !== drag.old_elm.parent().offset().top){
+                        //向目标容器添加节点并删除原节点
+                        //tmp = $(drag.old_elm).clone();
+                        //var newObj = $(value).append(tmp);
+
+                        var NodePos = new NodePostion(e.pageX-box_x,e.pageY-box_y);
+                        switch(calssName){
+                            case "NetDevice":
+                                new GW_Node(g_CurSence,NodePos,image,tmpName,"","detail");
+                                break;
+                            case "HostDevice":
+                                new GW_Node(g_CurSence,NodePos,image,tmpName,"","detail");
+                                break;
+                            case "AreaDevice":
+                                if(tmpName == "部门")
+                                   new GW_DomainNode(g_CurSence,NodePos,image,tmpName,"","domain");
+                                else
+                                    new GW_BranchNode(g_CurSence,NodePos,image,tmpName,"","domain");
+                                break;
+                            case "TopoBkImg":
+                                g_CurSence.SetBkGround(image);
+                                break;
+                        }
+
+                    }
+                }
+                return false;
+            });
+
+        },
+    };
+
+</script>
+
+<script type="text/javascript">
+
+    window.onload = function(){
+        var divTopoTool = document.getElementById('tools');
+        //debugger;
+        LoadTopoTools(divTopoTool);
+    }
+
+
+</script>
+
+</body>
+
+</html>

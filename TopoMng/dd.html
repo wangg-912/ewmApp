@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GB2312"/>
+    <title></title>
+    <style type="text/css">
+        html,body{
+            font-size:12px;
+        }
+        .dataBar a,.dataBar span,.dataBar div{
+            display:block;
+            height:16px;
+            line-height:16px;
+            vertical-align:middle;
+            float:left;
+        }
+        .dataBar div{
+            float:left;
+            padding:0 0.5em;
+        }
+        .dataBar a{
+            color:red;
+            text-decoration:none;
+            padding-left:3px;
+        }
+        .dataBar a:hover,.dataBar a#currentData{
+            color:white;
+        }
+        .dataBar  span{
+            cursor:hand;
+            padding-right:3px;
+        }
+        .dataBar a:hover,.dataBar a:hover span,.dataBar a#currentData,.dataBar a#currentData span{
+            background:url(tab.gif) 0 0;
+        }
+        .dataBar a:hover span,.dataBar a#currentData span{
+            background-position:100% 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        function itemClick(a){
+            var id = "currentData";
+            if(a.id==id){
+                return true ;
+            }
+            else{
+                document.getElementById(id).id="";
+                a.id=id;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body style="background-color:#ccc">
+<!--http://wallimn.iteye.com-->
+<div class="dataBar" style="height:16px;">
+    <a href="#" id="currentData" onclick="itemClick(this)"><span>最新动态</span></a>
+    <div>|</div>
+    <a href="#" onclick="itemClick(this)"><span>高清</span></a>
+    <div>|</div>
+    <a href="#" onclick="itemClick(this)"><span>美剧</span></a>
+    <div>|</div>
+    <a href="#" onclick="itemClick(this)"><span>动漫</span></a>
+</div>
+</body>
+</html>

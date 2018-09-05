@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="77ab19f0-48e7-413a-9930-11309a323d7d" name="Default Changelist" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TopoMng/jTopo_link.html" afterPath="$PROJECT_DIR$/TopoMng/jTopo_link.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TopoMng/js/topoIcon.js" afterPath="$PROJECT_DIR$/TopoMng/js/topoIcon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TopoMng/js/topoTools.js" afterPath="$PROJECT_DIR$/TopoMng/js/topoTools.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/page/jdataBase.js" afterPath="$PROJECT_DIR$/js/page/jdataBase.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js" afterPath="$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/utils/jtopoBase.js" afterPath="$PROJECT_DIR$/js/utils/jtopoBase.js" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FUSProjectUsageTrigger">
+    <session id="-177131070">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="bmp" value="4" />
+          <entry key="css" value="13" />
+          <entry key="html" value="35" />
+          <entry key="js" value="35" />
+          <entry key="json" value="3" />
+          <entry key="png" value="13" />
+          <entry key="ts" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CSS" value="13" />
+          <entry key="HTML" value="35" />
+          <entry key="Image" value="17" />
+          <entry key="JSON" value="3" />
+          <entry key="JavaScript" value="35" />
+          <entry key="TypeScript" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="css" value="67" />
+          <entry key="html" value="2941" />
+          <entry key="js" value="7872" />
+          <entry key="json" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="CSS" value="67" />
+          <entry key="HTML" value="2941" />
+          <entry key="JSON" value="2" />
+          <entry key="JavaScript" value="7872" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="www" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="jTopo_link.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TopoMng/jTopo_link.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="309">
+              <caret line="100" column="29" lean-forward="true" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+              <folding>
+                <element signature="n#style#0;n#textarea#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#9971#11780#0" expanded="false" />
+                <element signature="e#12125#12399#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="topoTools.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TopoMng/js/topoTools.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="46">
+              <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="picture-list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TopoMng/picture-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1780">
+              <caret line="89" column="13" lean-forward="false" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="picture-show.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TopoMng/picture-show.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="780">
+              <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="topoIcon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TopoMng/js/topoIcon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="10" />
+              <folding>
+                <marker date="1535941402733" expanded="true" signature="3820:3840" ph="..." />
+                <marker date="1535941402733" expanded="true" signature="3930:3938" ph="..." />
+                <marker date="1535941402733" expanded="true" signature="4304:4324" ph="..." />
+                <marker date="1535941402733" expanded="true" signature="4413:4421" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jtopo-0.4.8-min.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-580">
+              <caret line="1282" column="32" lean-forward="false" selection-start-line="1282" selection-start-column="32" selection-end-line="1282" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jdataBase.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/page/jdataBase.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="63" column="34" lean-forward="true" selection-start-line="63" selection-start-column="34" selection-end-line="63" selection-end-column="34" />
+              <folding>
+                <element signature="e#22#1070#0" expanded="false" />
+                <element signature="n#!!block;n#PreLoagImageFinsish#0" expanded="false" />
+                <element signature="n#!!block;n#PreLoadImageResoure#0" expanded="false" />
+                <element signature="n#!!block;n#topoGetFailure#0" expanded="false" />
+                <element signature="e#4272#4501#0" expanded="false" />
+                <element signature="e#4525#4754#0" expanded="false" />
+                <element signature="e#4773#5005#0" expanded="false" />
+                <element signature="n#!!block;n#buildImagOnloadCall#0" expanded="false" />
+                <element signature="n#!!block;n#buildAndSetBkImg#0" expanded="false" />
+                <marker date="1536057683121" expanded="true" signature="10781:10785" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="10907:10911" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="11052:11056" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="11300:11304" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="11444:11448" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="11664:11668" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="11805:11809" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="11996:12000" ph="&gt;" />
+                <marker date="1536057683121" expanded="true" signature="12731:12735" ph="&gt;" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="infrastructure.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/infrastructure.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="24" column="9" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jtopoBase.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/utils/jtopoBase.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+              <folding>
+                <element signature="n#!!block;n#GW_DomainNode#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>IconTools</find>
+      <find>selected</find>
+      <find>new Image()</find>
+      <find>buildi</find>
+      <find>canvas_bkimg</find>
+      <find>手动编排</find>
+      <find>分支机构</find>
+      <find>分支</find>
+      <find>navLink</find>
+      <find>background</find>
+      <find>TopoToolBar</find>
+      <find>Node</find>
+      <find>textPosition</find>
+      <find>fontColor</find>
+      <find>setTextPostion</find>
+      <find>TextNode</find>
+      <find>textfield</find>
+      <find>TopoIcon</find>
+      <find>拖拽</find>
+      <find>mouse</find>
+      <find>CreateIconUl</find>
+      <find>tools</find>
+      <find>00</find>
+      <find>GW_TextNode</find>
+      <find>topoNodeToolTipHandler</find>
+      <find>myThis</find>
+      <find>canvas</find>
+      <find>GW_Node</find>
+      <find>topoGetSuccess</find>
+      <find>debuggre</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>&quot;00</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>D:\ewm\www</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/TrafficMng/css/trafic.css" />
+        <option value="$PROJECT_DIR$/TrafficMng/TrafficMonitor.html" />
+        <option value="$PROJECT_DIR$/TrafficMng/css/tooltip1.css" />
+        <option value="$PROJECT_DIR$/TrafficMng/css/tooltip2.css" />
+        <option value="$PROJECT_DIR$/TrafficMng/css/tooltips_demo.css" />
+        <option value="$PROJECT_DIR$/TrafficMng/tooltips1.js" />
+        <option value="$PROJECT_DIR$/TrafficMng/tooltips_jbox.js" />
+        <option value="$PROJECT_DIR$/TrafficMng/tooltip_demo.html" />
+        <option value="$PROJECT_DIR$/TrafficMng/tooltipsDemo/tooltips1.js" />
+        <option value="$PROJECT_DIR$/lib/jquery/1.9.1/jquery.min.js" />
+        <option value="$PROJECT_DIR$/TrafficMng/tooltipsDemo/tooltip_demo.html" />
+        <option value="$PROJECT_DIR$/TrafficMng/test.html" />
+        <option value="$PROJECT_DIR$/TrafficMng/slidebar.js" />
+        <option value="$PROJECT_DIR$/topoMng/picture-list.html" />
+        <option value="$PROJECT_DIR$/topoMng/jTopo_link.html" />
+        <option value="$PROJECT_DIR$/js/infrastructure.js" />
+        <option value="$PROJECT_DIR$/picture-show.html" />
+        <option value="$PROJECT_DIR$/lib/datatables/1.10.0/jquery.dataTables.min.js" />
+        <option value="$PROJECT_DIR$/picture-list.html" />
+        <option value="$PROJECT_DIR$/TopoMng/picture-show.html" />
+        <option value="$PROJECT_DIR$/../data/gowin/Topo.View.loadTopoIcon_all#DEF#.json" />
+        <option value="$PROJECT_DIR$/../data/gowin/_request_loadTopoIcon.json" />
+        <option value="$PROJECT_DIR$/TopoMng/dragDemo.html" />
+        <option value="$PROJECT_DIR$/TopoMng/test.html" />
+        <option value="$PROJECT_DIR$/static/h-ui/css/H-ui.min.css" />
+        <option value="$PROJECT_DIR$/TopoMng/dd.html" />
+        <option value="$PROJECT_DIR$/TopoMng/托尔斯泰.html" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js" />
+        <option value="$PROJECT_DIR$/TopoMng/js/topoIcon.js" />
+        <option value="$PROJECT_DIR$/TopoMng/js/topoTools.js" />
+        <option value="$PROJECT_DIR$/dd.js" />
+        <option value="$PROJECT_DIR$/js/page/jdataBase.js" />
+        <option value="$PROJECT_DIR$/js/utils/jtopoBase.js" />
+        <option value="$PROJECT_DIR$/TopoMng/jTopo_link.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/js/utils/jquery-toolbar/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TopoMng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="tooltips&#9;null&#9;null&#10;tooltip&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="F:/Program Files (x86)/node" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="js-jscs-nodeInterpreter" value="F:\Program Files (x86)\node.exe" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ewm\www\resource\logic" />
+      <recent name="D:\ewm\www\resource\physical" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ewm\www\TopoMng" />
+      <recent name="D:\ewm\www\resource\physical\NetDevice" />
+      <recent name="D:\ewm\www" />
+      <recent name="D:\ewm\www\topoMng" />
+      <recent name="D:\ewm\www\TrafficMng\tooltipsDemo\css" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\lenovo\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\ewm\www" />
+          <option name="myCopyRoot" value="D:\ewm\www" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\ewm\www" />
+          <option name="myCopyRoot" value="D:\ewm\www" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="77ab19f0-48e7-413a-9930-11309a323d7d" name="Default Changelist" comment="" />
+      <created>1534484442551</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1534484442551</updated>
+      <workItem from="1534484445192" duration="24272000" />
+      <workItem from="1535023489633" duration="87000" />
+      <workItem from="1535024345682" duration="817000" />
+      <workItem from="1535097675965" duration="31808000" />
+      <workItem from="1535331375883" duration="56773000" />
+      <workItem from="1535700264491" duration="610000" />
+      <workItem from="1535771377109" duration="17417000" />
+      <workItem from="1535941117738" duration="6185000" />
+      <workItem from="1535964422924" duration="14491000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="152460000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TopoMng/jTopo_link.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7060">
+          <caret line="353" column="37" lean-forward="false" selection-start-line="353" selection-start-column="37" selection-end-line="353" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#textarea#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#9971#11780#0" expanded="false" />
+            <element signature="e#12125#12399#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/js/topoTools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/picture-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1780">
+          <caret line="89" column="13" lean-forward="false" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/picture-show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/js/topoIcon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1535941402733" expanded="true" signature="3820:3840" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="3930:3938" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="4304:4324" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="4413:4421" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#aside#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/jtopoBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1060">
+          <caret line="53" column="28" lean-forward="false" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+          <folding>
+            <element signature="n#!!block;n#GW_DomainNode#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25640">
+          <caret line="1282" column="32" lean-forward="false" selection-start-line="1282" selection-start-column="32" selection-end-line="1282" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/page/jdataBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7620">
+          <caret line="381" column="59" lean-forward="false" selection-start-line="381" selection-start-column="59" selection-end-line="381" selection-end-column="59" />
+          <folding>
+            <element signature="e#22#1070#0" expanded="false" />
+            <element signature="n#!!block;n#PreLoagImageFinsish#0" expanded="false" />
+            <element signature="n#!!block;n#PreLoadImageResoure#0" expanded="false" />
+            <element signature="n#!!block;n#topoGetFailure#0" expanded="false" />
+            <element signature="e#4272#4501#0" expanded="false" />
+            <element signature="e#4525#4754#0" expanded="false" />
+            <element signature="e#4773#5005#0" expanded="false" />
+            <element signature="n#!!block;n#buildImagOnloadCall#0" expanded="false" />
+            <element signature="n#!!block;n#buildAndSetBkImg#0" expanded="false" />
+            <marker date="1536057683121" expanded="true" signature="10781:10785" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="10907:10911" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11052:11056" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11300:11304" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11444:11448" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11664:11668" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11805:11809" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11996:12000" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="12731:12735" ph="&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/jTopo_link.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4540">
+          <caret line="227" column="31" lean-forward="true" selection-start-line="227" selection-start-column="31" selection-end-line="227" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#textarea#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#9971#11780#0" expanded="false" />
+            <element signature="e#12125#12399#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/js/topoTools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1880">
+          <caret line="116" column="20" lean-forward="false" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/js/topoIcon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="22" selection-end-column="2" />
+          <folding>
+            <marker date="1535941402733" expanded="true" signature="3820:3840" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="3930:3938" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="4304:4324" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="4413:4421" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="40" column="18" lean-forward="true" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#aside#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/h-ui.admin/css/H-ui.admin.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="90" column="1" lean-forward="false" selection-start-line="90" selection-start-column="1" selection-end-line="90" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/h-ui/css/H-ui.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3920">
+          <caret line="196" column="1" lean-forward="false" selection-start-line="196" selection-start-column="1" selection-end-line="196" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/jtopoBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#GW_DomainNode#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25640">
+          <caret line="1282" column="32" lean-forward="true" selection-start-line="1282" selection-start-column="32" selection-end-line="1282" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/page/jdataBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7620">
+          <caret line="381" column="59" lean-forward="false" selection-start-line="381" selection-start-column="59" selection-end-line="381" selection-end-column="59" />
+          <folding>
+            <element signature="e#22#1070#0" expanded="false" />
+            <element signature="n#!!block;n#PreLoagImageFinsish#0" expanded="false" />
+            <element signature="n#!!block;n#PreLoadImageResoure#0" expanded="false" />
+            <element signature="n#!!block;n#topoGetFailure#0" expanded="false" />
+            <element signature="e#4272#4501#0" expanded="false" />
+            <element signature="e#4525#4754#0" expanded="false" />
+            <element signature="e#4773#5005#0" expanded="false" />
+            <element signature="n#!!block;n#buildImagOnloadCall#0" expanded="false" />
+            <element signature="n#!!block;n#buildAndSetBkImg#0" expanded="false" />
+            <marker date="1536057683121" expanded="true" signature="10781:10785" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="10907:10911" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11052:11056" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11300:11304" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11444:11448" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11664:11668" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11805:11809" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11996:12000" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="12731:12735" ph="&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index-2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="155" column="108" lean-forward="false" selection-start-line="155" selection-start-column="108" selection-end-line="155" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrafficMng/slidebar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/jquery.validation/1.14.0/jquery.validate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="1383" column="4" lean-forward="false" selection-start-line="1383" selection-start-column="4" selection-end-line="1383" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/jquery/1.9.1/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/datatables/1.10.0/jquery.dataTables.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61728">
+          <caret line="2574" column="44" lean-forward="false" selection-start-line="2574" selection-start-column="44" selection-end-line="2574" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../data/gowin/_request_loadMainPage.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../data/gowin/_request_loadTopoIcon.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../data/gowin/Topo.View.loadTopoIcon_all#DEF#.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.scripthost.d.ts" />
+    <entry file="file://$PROJECT_DIR$/js/utils/jquery-3.3.1.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5167">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts" />
+    <entry file="file://$PROJECT_DIR$/jTopo_link.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="174" column="51" lean-forward="true" selection-start-line="173" selection-start-column="4" selection-end-line="174" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/jTopo_link - 副本.html" />
+    <entry file="file://$PROJECT_DIR$/TopoMng/托尔斯泰.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="27" column="29" lean-forward="false" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/dd.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="60" column="61" lean-forward="false" selection-start-line="60" selection-start-column="61" selection-end-line="60" selection-end-column="61" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Hui-iconfont/1.0.8/iconfont.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/h-ui/css/H-ui.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3920">
+          <caret line="196" column="1" lean-forward="false" selection-start-line="196" selection-start-column="1" selection-end-line="196" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/h-ui.admin/css/H-ui.admin.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="90" column="1" lean-forward="false" selection-start-line="90" selection-start-column="1" selection-end-line="90" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#aside#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/picture-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1780">
+          <caret line="89" column="13" lean-forward="false" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/picture-show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/dragDemo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-480">
+          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/js/topoIcon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="10" />
+          <folding>
+            <marker date="1535941402733" expanded="true" signature="3820:3840" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="3930:3938" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="4304:4324" ph="..." />
+            <marker date="1535941402733" expanded="true" signature="4413:4421" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/jtopo-0.4.8-min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-580">
+          <caret line="1282" column="32" lean-forward="false" selection-start-line="1282" selection-start-column="32" selection-end-line="1282" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="1198" column="0" lean-forward="true" selection-start-line="1198" selection-start-column="0" selection-end-line="1198" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/infrastructure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="24" column="9" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/js/topoTools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/page/jdataBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="63" column="34" lean-forward="true" selection-start-line="63" selection-start-column="34" selection-end-line="63" selection-end-column="34" />
+          <folding>
+            <element signature="e#22#1070#0" expanded="false" />
+            <element signature="n#!!block;n#PreLoagImageFinsish#0" expanded="false" />
+            <element signature="n#!!block;n#PreLoadImageResoure#0" expanded="false" />
+            <element signature="n#!!block;n#topoGetFailure#0" expanded="false" />
+            <element signature="e#4272#4501#0" expanded="false" />
+            <element signature="e#4525#4754#0" expanded="false" />
+            <element signature="e#4773#5005#0" expanded="false" />
+            <element signature="n#!!block;n#buildImagOnloadCall#0" expanded="false" />
+            <element signature="n#!!block;n#buildAndSetBkImg#0" expanded="false" />
+            <marker date="1536057683121" expanded="true" signature="10781:10785" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="10907:10911" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11052:11056" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11300:11304" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11444:11448" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11664:11668" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11805:11809" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="11996:12000" ph="&gt;" />
+            <marker date="1536057683121" expanded="true" signature="12731:12735" ph="&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/jtopoBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+          <folding>
+            <element signature="n#!!block;n#GW_DomainNode#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TopoMng/jTopo_link.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="100" column="29" lean-forward="true" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#textarea#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#9971#11780#0" expanded="false" />
+            <element signature="e#12125#12399#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <last-edited>gowin</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

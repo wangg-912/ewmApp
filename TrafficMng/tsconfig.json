@@ -1,0 +1,292 @@
+{
+  "resultType": "json",
+  "resultData": {
+    "resource": "Topo.View",
+    "op": "loadTopoView",
+    "success": true,
+    "errorMsg": "",
+    "result": [{
+      "id": "defView",
+      "nodes": [{
+        "id": {
+          "Name": "成都分支",
+          "PrimeKey": 1
+        },
+        "type": "branch",
+        "icon": "def",
+        "poweroff": false,
+        "asset": {
+          "alias": "switch-001",
+          "description": "test sw 001."
+        },
+        "location": {
+          "x": 900,
+          "y": 450
+        },
+        "portIDs": [
+          "openflow:1:1",
+          "openflow:1:2",
+          "openflow:1:LOCAL"
+        ],
+        "tag": "markup",
+        "alert": "none",
+        "sla": "normal",
+        "EdgeDevice": {
+          "Type": "iG1000",
+          "Name": "成都出口设备"
+        },
+        "devType": [
+          "host",
+          "printer",
+          "router"
+        ]
+      },
+        {
+          "id": {
+            "Name": "上海分支",
+            "PrimeKey": 2
+          },
+          "type": "branch",
+          "icon": "def",
+          "poweroff": false,
+          "asset": {
+            "alias": "switch-002",
+            "description": "test sw 002."
+          },
+          "location": {
+            "x": 550,
+            "y": 620
+          },
+          "portIDs": [
+            "openflow:2:1",
+            "openflow:2:2",
+            "openflow:2:LOCAL"
+          ],
+          "tag": "markup",
+          "alert": "none",
+          "sla": "normal",
+          "EdgeDevice": {
+            "Type": "iG1000",
+            "Name": "出口设备"
+          },
+          "devType": [
+            "host",
+            "router"
+          ]
+        },
+        {
+          "id": {
+            "Name": "大连分支",
+            "PrimeKey": 3
+          },
+          "type": "branch",
+          "icon": "img/iocn/lenovo-pc.png",
+          "poweroff": false,
+          "asset": {
+            "name": "host-001",
+            "description": "test host 001."
+          },
+          "location": {
+            "x": 1100,
+            "y": 250
+          },
+          "tag": "markup",
+          "alert": "warn",
+          "sla": "normal",
+          "EdgeDevice": {
+            "Type": "iG1000",
+            "Name": "出口设备"
+          },
+          "devType": [
+            "host",
+            "printer",
+            "router"
+          ]
+        },
+        {
+          "id": {
+            "Name": "山东分支",
+            "PrimeKey": 4
+          },
+          "type": "branch",
+          "icon": "img/iocn/lenovo-pc.png",
+          "poweroff": false,
+          "asset": {
+            "name": "host-001",
+            "description": "test host 001."
+          },
+          "location": {
+            "x": 200,
+            "y": 500
+          },
+          "tag": "markup",
+          "alert": "warn",
+          "sla": "normal",
+          "EdgeDevice": {
+            "Type": "iG1000",
+            "Name": "出口设备"
+          },
+          "devType": [
+            "host",
+            "router"
+          ]
+        },
+        {
+          "id": {
+            "Name": "台湾分支",
+            "PrimeKey": 5
+          },
+          "type": "branch",
+          "icon": "img/iocn/lenovo-pc.png",
+          "poweroff": false,
+          "asset": {
+            "name": "host-001",
+            "description": "test host 001."
+          },
+          "location": {
+            "x": 100,
+            "y": 280
+          },
+          "tag": "markup",
+          "alert": "warn",
+          "sla": "normal",
+          "EdgeDevice": {
+            "Type": "iG2000",
+            "Name": "出口设备"
+          },
+          "devType": [
+            "host",
+            "printer",
+            "router"
+          ]
+        },
+        {
+          "id": {
+            "Name": "总部",
+            "PrimeKey": 0
+          },
+          "type": "branch",
+          "icon": "def",
+          "poweroff": false,
+          "asset": {
+            "name": "host-002",
+            "description": "test host 002."
+          },
+          "location": {
+            "x": 480,
+            "y": 5
+          },
+          "tag": "markup",
+          "alert": "none",
+          "sla": "normal",
+          "EdgeDevice": {
+            "Type": "WIFI",
+            "Name": "出口设备"
+          },
+          "devType": [
+            "host",
+            "switch",
+            "server",
+            "printer",
+            "base_building"
+          ]
+        }
+      ],
+      "links": [{
+        "id": {
+          "Name": "fiberlink01",
+          "PrimeKey": 1
+        },
+        "endpoint": [{
+          "refNode": 0,
+          "nodeInf": ""
+        },
+          {
+            "refNode": 1,
+            "nodeInf": ""
+          }
+        ],
+        "media": "pair",
+        "icon": "def",
+        "alert": "none",
+        "sla": "normal"
+      },
+        {
+          "id": {
+            "Name": "pairlink01",
+            "PrimeKey": 2
+          },
+          "endpoint": [{
+            "refNode": 0,
+            "nodeInf": ""
+          },
+            {
+              "refNode": 2,
+              "nodeInf": ""
+            }
+          ],
+          "media": "",
+          "icon": "def",
+          "alert": "none",
+          "sla": "normal"
+        },
+        {
+          "id": {
+            "Name": "pairlink02",
+            "PrimeKey": 3
+          },
+          "endpoint": [{
+            "refNode": 0,
+            "nodeInf": ""
+          },
+            {
+              "refNode": 3,
+              "nodeInf": ""
+            }
+          ],
+          "media": "",
+          "icon": "def",
+          "alert": "none",
+          "sla": "normal"
+        },
+        {
+          "id": {
+            "Name": "pairlink03",
+            "PrimeKey": 4
+          },
+          "endpoint": [{
+            "refNode": 0,
+            "nodeInf": ""
+          },
+            {
+              "refNode": 4,
+              "nodeInf": ""
+            }
+          ],
+          "media": "",
+          "icon": "def",
+          "alert": "none",
+          "sla": "normal"
+        }, {
+          "id": {
+            "Name": "pairlink04",
+            "PrimeKey": 5
+          },
+          "endpoint": [{
+            "refNode": 0,
+            "nodeInf": ""
+          },
+            {
+              "refNode": 5,
+              "nodeInf": ""
+            }
+          ],
+          "media": "",
+          "icon": "def",
+          "alert": "none",
+          "sla": "normal"
+        }
+      ]
+    }]
+  }
+}
