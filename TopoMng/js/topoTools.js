@@ -84,8 +84,7 @@ function LoadTopoTools(divTopoTool){
 function ToolBarTagle() {
     var toolcmdDiv = document.getElementById("toolcmd");
     var status = toolcmdDiv.getAttribute("status");
-    if(status == "open")
-    {
+    if(status == "open"){
 
         $("#TopoToolBar").animate({width:'200px'},500).css("float","right");
         toolcmdDiv.setAttribute("src","../resource/icon/config-hide.png");
@@ -93,8 +92,7 @@ function ToolBarTagle() {
         toolcmdDiv.setAttribute("status","close");
 
     }
-    else
-    {
+    else{
         toolcmdDiv.setAttribute("src","../resource/icon/config-show.png");
         toolcmdDiv.setAttribute("title","展开工具条");
         toolcmdDiv.setAttribute("status","open");
@@ -108,5 +106,5 @@ function ToolBarTagle() {
 
 function removeBkimg()
 {
-    g_CurSence.removeBkGround();
+    GW.scene.background = "";
 }

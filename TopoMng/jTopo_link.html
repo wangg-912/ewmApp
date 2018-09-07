@@ -7,15 +7,10 @@
     <title>jTopo Demo</title>
     <meta name="description" content="GWTOPO">
     <meta name="keyword" content="GWTOPO">
-
     <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css"/>
     <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css"/>
-    <script src="../js/utils/jquery-3.3.1.min.js"></script>
-    <script src="js/topoIcon.js"></script>
-    <script src="js/topoTools.js"> </script>
-
-    <style>
+    <style type="text/css">
         *{margin:0px;padding:0px;}
         #TopoToolBar{  padding:0px; margin-right: 40px;}  /*background:#5F768B; */
         #TopoToolBar ul{repeat-x left top; padding:1px 1px;}
@@ -29,7 +24,7 @@
             right: 0;
             z-index: 10;
         }
-       .topo_Tools div{
+        .topo_Tools div{
             width:220px;
             margin:0px 0px 0px auto;
             background:#fff;
@@ -93,9 +88,9 @@
         .border{border:1px solid #1f1f1f;}
 
         #toolTip{
-            border: 1px solid #b2c6cd;
+            border: 1px solid #d5d5d5;
             border-radius: 3px;
-            background: #e0e0e0;
+            background: #eeeeee;
             position: absolute;
             color: #1890ff;
             list-style: none;
@@ -105,14 +100,14 @@
             width: auto;
         }
     </style>
-
+    <script src="../js/utils/jquery-3.3.1.min.js"></script>
+    <script src="js/topoIcon.js"></script>
+    <script src="js/topoTools.js"> </script>
     <script type="text/javascript" src="../js/utils/jtopo-0.4.8-min.js"></script>
     <script type="text/javascript" src="../js/utils/jtopoBase.js"></script>
     <script type="text/javascript" src="../js/page/jdataBase.js"></script>
     <script type="text/javascript" charset="utf-8" src="../js/infrastructure.js"></script>
     <!--<script type="text/javascript" src="toolbar.js"></script>-->
-
-
     <script id='code'>
 
         var g_CurStage;
@@ -154,7 +149,10 @@
 
            // 加载Icon背景
             PreLoadImageResoure();
-            InitLoadTopo();
+            //InitLoadTopo();
+            initTopo("canvas");
+            setCanvasSize();
+            loadTopo([{resource: "Topo.View", op: "loadBranchView"}],successCall,errorCall);
 
             $("#contextmenu a").click(function(){
                 var text = $(this).text();
@@ -211,14 +209,11 @@
            href="javascript:location.replace(location.href);" title="刷新"><i
                 class="Hui-iconfont">&#xe68f;</i></a>
     </div>
-
     <div class="f-r" width="20px" style="margin-right: 40px">
-
-        <a title="展开工具条" onclick="ToolBarTagle()"><img id="toolcmd" status="open" src="../resource/icon/config-show.png" width="20px"  height="20px" alt="工具条"
-                                                    align="absmiddle"/></a>
-
+        <a title="展开工具条" onclick="ToolBarTagle()">
+            <img id="toolcmd" status="open" src="../resource/icon/config-show.png" width="20px"  height="20px" alt="工具条" align="absmiddle"/>
+        </a>
     </div>
-
     <div id="TopoToolBar" style="width: 0px">
         <ul>
             <li><img src="../resource/icon/eye-minus.png" alt="隐藏侧边栏" title="隐藏侧边栏" width="20px"  height="20px" align="absmiddle"/></li>
@@ -230,51 +225,36 @@
     </div>
 </nav>
 
-<textarea id="textfield" style="display:none;width: 100px;height: 25px; position: absolute;"
-          onkeydown="if(event.keyCode==13)this.blur();"></textarea>
-
+<textarea id="textfield" style="display:none;width: 100px;height: 25px; position: absolute;" onkeydown="if(event.keyCode==13)this.blur();"></textarea>
     <div class="wrap_div">
-
         <div >
             <div class="left">
-                <ul id="menu">
-
-                </ul>
+                <ul id="menu"></ul>
             </div>
-
             <div class="right">
                 <div id="content" style="float: left;width: 1300px">
                     <canvas id="canvas"></canvas>
-
                 </div>
                 <div id="content1" style="float: left;width: 100px">
                     <canvas id="canvas_bkimg"></canvas>
-
                 </div>
                 <div class="dislpayTools hidden-xs" style="float: right;" id="iconArrow">
                     <a class="pngfix" href="javascript:void(0);" onClick="displaytools(this)"></a>
                 </div>
-                <div class="topo_Tools" style="float: right;display: none" id="tools">
-
-                </div>
+                <div class="topo_Tools" style="float: right;display: none" id="tools"></div>
             </div>
-
-
         </div>
         <div id="clear" style="width:850px;height:350px"></div>
     </div>
-
-
 <script type="text/javascript">
 
 //手动编排功能
-
+var beginNode = null;
 //拖拽
     var drag = {
 
         class_name : null,  //允许放置的容器
         permitDrag : false,	//是否允许移动标识
-
         _x : 0,             //节点x坐标
         _y : 0,			    //节点y坐标
         _left : 0,          //光标与节点坐标的距离
@@ -283,15 +263,10 @@
         old_elm : null,     //拖拽原节点
         tmp_elm : null,     //跟随光标移动的临时节点
         new_elm : null,     //拖拽完成后添加的新节点
-
         //初始化
         init : function (className){
-
             //允许拖拽节点的父容器的classname(可按照需要，修改为id或其他)
             drag.class_name = className;
-
-
-
             //监听鼠标按下事件，动态绑定要拖拽的节点（因为节点可能是动态添加的）
             $('.' + drag.class_name).on('mousedown', 'img', function(event){
                 if(($(this).attr("id") != "line") &&
@@ -302,8 +277,7 @@
                     return;
 
                 //准备画线
-                if($(this).attr("id") == "line")
-                {
+                if($(this).attr("id") == "line"){
                     //$(this).parent().parent().addClass("selected");
                     if($(this).hasClass("border")){
                         $(this).removeClass('border');
@@ -317,8 +291,7 @@
                     }
                     return;
                 }
-                if($(this).attr("id") == "polyline")
-                {
+                if($(this).attr("id") == "polyline"){
                     if($(this).hasClass("border")){
                         $(this).removeClass('border');
                         tmpPolyLineAllow = false;
@@ -339,7 +312,6 @@
                 drag.mousedown(event);
                 return false;
             });
-
             //监听鼠标移动
             $(document).mousemove(function(event){
                 //判断拖拽标识是否为允许，否则不进行操作
@@ -381,6 +353,7 @@
                 'background-color' : '#FF8C69',
                 'left' : drag._x,
                 'top' : drag._y,
+                'zIndex':100
             });
 
             //4.添加临时节点
@@ -417,7 +390,7 @@
 
         //放开鼠标 执行的操作
         mouseup : function (event){
-            console.log('我被mouseup了');
+            //console.log('我被mouseup了');
             //判断设备类型
             var calssName = $(drag.tmp_elm).attr("id");
             var tmpName = $(drag.tmp_elm).attr("title");
@@ -449,22 +422,31 @@
                         //tmp = $(drag.old_elm).clone();
                         //var newObj = $(value).append(tmp);
 
-                        var NodePos = new NodePostion(e.pageX-box_x,e.pageY-box_y);
+                        var NodePos = {
+                            "x":e.pageX-box_x,
+                            "y":e.pageY-box_y
+                        };
                         switch(calssName){
                             case "NetDevice":
-                                new GW_Node(g_CurSence,NodePos,image,tmpName,"","detail");
+                                //new GW_Node(g_CurSence,NodePos,image,tmpName,"","detail");
+                                dragAddNode(NodePos,image,tmpName,"","edge");
                                 break;
                             case "HostDevice":
-                                new GW_Node(g_CurSence,NodePos,image,tmpName,"","detail");
+                                dragAddNode(NodePos,image,tmpName,"","terminal");
+                                //new GW_Node(g_CurSence,NodePos,image,tmpName,"","terminal");
                                 break;
                             case "AreaDevice":
                                 if(tmpName == "部门")
-                                   new GW_DomainNode(g_CurSence,NodePos,image,tmpName,"","domain");
-                                else
-                                    new GW_BranchNode(g_CurSence,NodePos,image,tmpName,"","domain");
+                                    dragAddNode(NodePos,image,tmpName,"","dept");
+                                   //new GW_DomainNode(g_CurSence,NodePos,image,tmpName,"","dept");
+                                else {
+                                    dragAddNode(NodePos, image, tmpName, "", "branch");
+                                }
+
                                 break;
                             case "TopoBkImg":
-                                g_CurSence.SetBkGround(image);
+                                //TODO
+                                //g_CurSence.SetBkGround(image);
                                 break;
                         }
 
@@ -475,6 +457,7 @@
 
         },
     };
+
 
 </script>
 

@@ -23,8 +23,7 @@ function  PreLoagImageFinsish(imgIndex,image) {
 function  PreLoadImageResoure() {
      var  image;
 
-    for(var i  in gw_IconImgArray)
-    {
+    for(var i  in gw_IconImgArray){
         image = new Image();
         image.src = gw_IconImgArray[i].imgUrl;
         gw_IconImgArray[i].objId = image;
@@ -38,19 +37,50 @@ function  PreLoadImageResoure() {
  * @param data
  */
 function topoGetSuccess(scene,data) {
-    var viewObj,nodes,links,createNodeHide,json_type,Node;
-    for (var i = 0; i < data.length; i++) {
+    var viewObj,nodes,links,createNodeHide,json_type,Node,g_BasePos;
+    $.each(data,function (i,view) {
+        viewObj = view.result;
+        nodes = viewObj[0].nodes;
+        links = viewObj[0].links;
+        for(var j = 0; j<nodes.length; j++){
+            json_type  = nodes[j]["type"];
+            if(nodes[j].id.PrimeKey == 0){
+                g_BasePos = nodes[j].location.x;
+            }
+            var Pos = new NodePostion(nodes[j]["location"]["x"],nodes[j]["location"]["y"]);
+            if(json_type == "branch"){
+                canvas.width = 1700;
+                canvas.height = 1150;
+                if(!gw_IconImgArray["branch"].validId){
+                    console.log("topoGetSuccess but branch image not ready!");
+                }
+                Node = new GW_BranchNode({
+                    "scene":scene,
+                    "node":nodes[j],
+                    "type":"branch",
+                    "nodeIcons":gw_IconImgArray
+                })
+                //Node = new GW_BranchNode(scene,Pos,gw_IconImgArray["branch"].objId,nodes[j].id.Name,nodes[j].id.PrimeKey,nodes[j].type,nodes[j]);
+                //hidePos = new NodePostion(Pos.x+130,Pos.y+200);
+                // createNodeHide = new GW_Node(scene,hidePos,"hide",null,null);
+                //buildAndSetBkImg(Node,"branch",nodes[j]);
+            }else if(json_type == "Depart"){
+                Node = new GW_DomainNode(scene,Pos,gw_IconImgArray["domain"].objId,nodes[j].id.Name,nodes[j].id.PrimeKey,nodes[j].type);
+                //buildAndSetBkImg(Node,"branch",nodes[j]);
+            }else{
+                Node = new GW_Node(scene,Pos,gw_IconImgArray[json_type].objId,nodes[j].id.Name,nodes[j].id.PrimeKey,nodes[j].type);
+
+            }
+        }
+    })
+    /*for (var i = 0; i < data.length; i++) {
         viewObj = data[i].result;
         nodes = viewObj[0].nodes;
         links = viewObj[0].links;
 
         for (var j = 0; j < nodes.length; j++) {
             //找出PrimeKey为0的X坐标，用于后面造图片判断使用哪组坐标队列
-            if(nodes[j].id.PrimeKey == 0){
-                g_BasePos = nodes[j].location.x;
-            }
-            var Pos = new NodePostion(nodes[j]["location"]["x"],nodes[j]["location"]["y"]);
-            json_type  = nodes[j]["type"];
+
 
             if(json_type == "branch"){
                 canvas.width = 1700;
@@ -73,10 +103,11 @@ function topoGetSuccess(scene,data) {
 
             }
             else if(json_type == "Depart"){
-                Node = new GW_DomainNode(scene,Pos,gw_IconImgArray["domain"].objId,
-                    nodes[j].id.Name,nodes[j].id.PrimeKey,nodes[j].type);
+                /!*Node = new GW_DomainNode(scene,Pos,gw_IconImgArray["domain"].objId,
+                    nodes[j].id.Name,nodes[j].id.PrimeKey,nodes[j].type);*!/
 
-                buildAndSetBkImg(Node,"domain",nodes[j]);
+                //buildAndSetBkImg(Node,"domain",nodes[j]);
+                WG();
             }
             else{
                 Node = new GW_Node(scene,Pos,gw_IconImgArray[json_type].objId,nodes[j].id.Name,nodes[j].id.PrimeKey,nodes[j].type);
@@ -84,7 +115,7 @@ function topoGetSuccess(scene,data) {
             }
 
         }
-        /*
+        /!*
             for (var j = 0; j < links.length; j++) {
             var refNodeA = links[j].endpoint[0].refNode;
             var refNodeB = links[j].endpoint[1].refNode;
@@ -98,11 +129,12 @@ function topoGetSuccess(scene,data) {
             }
             var Link = new GW_Line(scene,NodeA,NodeB,type,name,key);
             scene.LinkAdd(Link) ;
-        } */
-    }
+        } *!/
+    }*/
     g_CurSence = scene;
     createHideLinkForMannul();
 }
+
 
 function topoGetFailure (data) {
     alert("load page data error.");
@@ -125,39 +157,31 @@ var g_TopoPos = [,,,
     [{"x":80,"y":80},{"x":60,"y":120},{"x":200,"y":100},{"x":130,"y":60},{"x":135,"y":160}]];
 
 
-function  buildImagOnloadCall(data,image,Node,nodeType)
-{
+function  buildImagOnloadCall(data,image,Node,nodeType){
     gw_IconImgArray[imgIndex].objId = image;
     gw_IconImgArray[imgIndex].validId = true;
     buildAndSetBkImg(Node,nodeType,data);
 }
-
-function buildAndSetBkImg(in_Node,Type,data)
-{
-    //var viewObj;
-    //var nodes;
-    var devType;
-    var edgeNodeIndex;
-    var edgeType;
-
+/**
+ * 创建背景设置图片
+ * @param in_Node 当前节点对象
+ * @param Type 节点类型
+ * @param data 节点数据
+ */
+function buildAndSetBkImg(in_Node,Type,data) {
+    //debugger;
+    return;
     var canvas = document.getElementById('canvas_bkimg');
-    //todo应该取默认图片的大小值
     canvas.width = 300;
     canvas.height = 200;
-
-    if(g_tmpStage == null)
-    {
-        g_tmpStage = new GW_stage(canvas);
-    }
-        devType  = data.devType;
-        edgeType = data.EdgeDevice.Type;
-
-    if(g_tmpScene == null) {
-        g_tmpScene = new GW_Scene(g_tmpStage, "tmpScene");
-    }
+    var g_tmpStage =  new GW_stage(canvas);
+    var g_tmpScene = new GW_Scene(g_tmpStage, "tmpScene");
     g_tmpScene.clearScene();
     g_tmpScene.SetState("visible");
-
+    //var nodes;
+    var devType = data.devType;
+    var edgeNodeIndex;
+    var edgeType = data.EdgeDevice.Type;
     if (Type == "branch") {
         if (gw_IconImgArray["branch"].validId == true) {
             g_tmpScene.SetBkGround(gw_IconImgArray["branch"].objId);
@@ -165,7 +189,6 @@ function buildAndSetBkImg(in_Node,Type,data)
         else {
             console.log("scene branch background image load not finished!");
         }
-
     }
     else if (Type == "domain") {
         if (gw_IconImgArray["domain"].validId == true) {
@@ -180,52 +203,44 @@ function buildAndSetBkImg(in_Node,Type,data)
 
     //建立背景图
     var nodeType;
-    if(devType.length< 3)
-    {
+    if(devType.length< 3){
        for(var j=devType.length;j<4;j++)
            devType[j] = "host";
-    }
-
-    {
+   }
+    //{
         //判断使用哪种坐标队列
         var PosArray = g_LeftTopoPos; //Default value
         var chkPos = data.location.x;
 
         if(data.id.PrimeKey == 0) {
             PosArray = g_TopoPos;
-        }
-        else {
+        }else {
             if (chkPos < g_BasePos)
                 PosArray = g_LeftTopoPos;
             else
                 PosArray = g_RightTopoPos;
         }
-        for(var i=0;i<devType.length;i++)
-        {
+        for(var i=0;i<devType.length;i++){
             var Pos = new NodePostion(PosArray[devType.length][i].x,
                 PosArray[devType.length][i].y);
 
 
-            if(gw_IconImgArray[devType[i]] == undefined )
-            {
+            if(gw_IconImgArray[devType[i]] == undefined ){
                 console.log(devType[i]+"undefined!");
                 nodeType = "host"; //异常设置default 为host主机
 
             }
-            else
-            {
+            else{
                 nodeType = devType[i];
             }
             var image     = gw_IconImgArray[nodeType].objId;
             var validFlag =  gw_IconImgArray[nodeType].validId;
-            if(validFlag == false)
-            {
+            if(validFlag == false){
                 image.onload = buildImagOnloadCall(date,image,in_Node,nodeType);
                return;
             }
             var Node = new GW_Node(g_tmpScene,Pos,image,"",i);
-            if(nodeType == edgeType)
-            {
+            if(nodeType == edgeType){
                 edgeNodeIndex = i;
             }
             g_tmpScene.NodeAdd(Node);
@@ -245,18 +260,20 @@ function buildAndSetBkImg(in_Node,Type,data)
                 var Line = new GW_Line(g_tmpScene,NodeA,NodeB,"DarkLine","",i);
             }
         }
-    }
-    for(var i in g_tmpScene.NodeArray)
+    //}
+    for(var i in g_tmpScene.NodeArray){
         delete g_tmpScene.NodeArray[i];
-
-    var newbkImage = g_tmpStage.SaveImage();
-    in_Node.SetImage(newbkImage);
-    g_tmpScene.SetState("invisible");
+    }
+    debugger;
+    setTimeout(function () {
+        var newbkImage = g_tmpStage.SaveImage();
+        in_Node.SetImage(newbkImage);
+        g_tmpScene.SetState("invisible");
+    },100)
 }
 
 //实现scence的切换功能
-function  stageDbClick(GW_stage,GW_scene,GW_Node)
-{
+function  stageDbClick(GW_stage,GW_scene,GW_Node){
     var sceneName;
     var req;
     //处理场景切换
@@ -266,8 +283,7 @@ function  stageDbClick(GW_stage,GW_scene,GW_Node)
     //console.log(GW_Node);
     //遍历scene,确认node对应的下一级场景是否存在，存在则显示，不存在则重新获取json数据
 
-    if(GW_Node.Type == "branch" || GW_Node.Type == "Depart")
-    { //进入下一级
+    if(GW_Node.Type == "branch" || GW_Node.Type == "Depart"){ //进入下一级
         if(GW_Node.Type == "branch")
             req = "loadDomainView";
         else if(GW_Node.Type == "Depart")
@@ -276,25 +292,31 @@ function  stageDbClick(GW_stage,GW_scene,GW_Node)
         //var sceneName = GW_Node.PrimeKey; robert
         sceneName = GW_Node.Type + "&" + GW_Node.PrimeKey;
         var scene = GW_stage.SceneArray[sceneName];
-        if(scene != undefined)
-        {
+        if(scene != undefined){
             scene.SetState("visible");
             g_CurSence = scene;
             //return;
         }
-        else
-        {//重新加载
-            var postJsonArray = new Array();
+        else{//重新加载
+            var postJsonArray = [];
             postJsonArray.push(createPostData("Topo.View",req));
-            ajaxJsonPost(postJsonArray, TopoDbSuccess, TopoDbError);
-            var secen = new GW_Scene(GW_stage, sceneName);
+            ajaxJsonPost(postJsonArray, function(data){
+                if(data[0].success){
+                    var secen = new GW_Scene(GW_stage, sceneName);
+                    tmpData = data;
+                    topoGetSuccess(secen, tmpData);
+                }
+
+            }, TopoDbError);
+
+            /*debugger;
             var topoId = setInterval(function () {
                 if(tmpDataStatus == 1) {
                     topoGetSuccess(secen, tmpData);
                     tmpDataStatus = 0;
                     clearInterval(topoId);
                 }
-            },150)
+            },150)*/
         }
         navMenu(GW_stage,GW_scene,GW_Node);
     }
@@ -303,17 +325,24 @@ function  stageDbClick(GW_stage,GW_scene,GW_Node)
     }
 }
 
-var TopoDbSuccess = function (data) {
+/*var TopoDbSuccess = function (data) {
+    if(data[0].success){
+        var secen = new GW_Scene(GW_stage, sceneName);
         tmpDataStatus = 1;
         tmpData = data;
-}
+        topoGetSuccess(secen, tmpData);
+    }else{
+        tmpDataStatus = 0;
+        tmpData = [];
+    }
+
+}*/
 
 var TopoDbError = function (data) {
     alert("Error:" + JSON.stringify(data, null, 2));
 }
 
-function  stagePrvScene(obj)
-{
+function stagePrvScene(obj) {
     //var curSecenName = GW_scene.PrimeKey;
     //var lenIndex = curSecenName.lastIndexOf("&");
     //var PrevSecenName = curSecenName.substr(0,lenIndex);
@@ -321,12 +350,9 @@ function  stagePrvScene(obj)
     var navText = $(obj).text();
 
     var sence = g_CurStage.SceneArray[navId];
-    if(sence == undefined)
-    {//应该不会发生
+    if(sence == undefined){//应该不会发生
 
-    }
-    else
-    {
+    }else{
         g_CurSence.SetState("invisible");
         sence.SetState("visible");
         g_CurSence = sence;

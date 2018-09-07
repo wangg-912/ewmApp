@@ -4,39 +4,42 @@ function NodePostion(X, Y) {
 
 }
 /**
- * TODO
+ * 创建hover事件
  * @param d
  */
-function topoNodeToolTipHandler(d,data) {
+function topoNodeToolTipHandler(d,data,type) {
+    console.log(data);
     var e = canvas.getBoundingClientRect();
     var a = Math.floor(d.clientX - e.left * (canvas.width / e.width) + canvas.offsetLeft + 16);
     var b = Math.floor(d.clientY - e.top * (canvas.height / e.height) + canvas.offsetTop + 16);
-    if (data.type == null) {
+    if (type == null) {
     } else {
-        if (data.type == "branch") {
-            $("#toolTip").html("<li>设备ID:" + data.id.PrimeKey + "</li>" +
-                "<li>设备名称:" + data.id.Name + "</li>" +
-                "<li>边缘器件:" + data.EdgeDevice.Name + "</li>" +
-                "<li>边缘器件类型:" + data.EdgeDevice.Type + "</li>")
-        } else {
-            if (d.target.topoType == "device") {
-                var c = "\u53ef\u7ba1\u7406";
-                if (d.target.isManagerNode == 0) {
-                    c = "\u4e0d\u53ef\u7ba1\u7406"
-                } else {
-                    if (d.target.isManagerNode == 2) {
-                        c = "\u672a\u914d\u7f6e"
-                    }
-                }
-                $("#toolTip").html("<li>\u8bbe\u5907\u540d\u79f0\uff1a" + d.target.displayName + "</li><li>\u8bbe\u5907\u7c7b\u578b\uff1a" + d.target.nodeType + "</li><li>\u8bbe\u5907IP\uff1a" + d.target.ipAddress + "</li><li>\u8bbe\u5907MAC\uff1a" + d.target.deviceMainMAC + "</li><li>\u7ba1\u7406\u72b6\u6001\uff1a" + c + "</li><li>\u8bbe\u5907\u7ba1\u7406\u534f\u8bae\uff1a" + d.target.managerProtocol + "</li><li>\u8bbe\u5907\u6240\u5728\u7f51\u7edc\uff1a" + d.target.groupName + "</li>")
-            } else {
-                if (d.target.topoType == "link") {
-                    $("#toolTip").html("<li>\u8d77\u70b9\u8bbe\u5907\uff1a" + d.target.fromNode + "</li><li>\u7ec8\u70b9\u8bbe\u5907\uff1a" + d.target.toNode + "</li><li>\u8d77\u70b9\u8d44\u6e90\uff1a" + d.target.fromResourceName + "</li><li>\u7ec8\u70b9\u8d44\u6e90\uff1a" + d.target.toResourceName + "</li><li>\u94fe\u8def\u63cf\u8ff0\uff1a" + d.target.linkDesc + "</li>")
-                }
-            }
+        switch (type){
+            case "branch":
+                //PrimeKey: 1, Name: "成都分支"
+                    $("#toolTip").html("<li>分支ID:" + data.PrimeKey + "</li><li>分支名称:" + data.Name + "</li>");
+                break;
+            case "edge":
+                    $("#toolTip").html("<li>出口设备:" + data.Name + "</li><li>设备类型:" + data.Type + "</li>");
+                break;
+            case "device":
+                    $("#toolTip").html("<li>设备类型:" + data + "</li>");
+                break;
+            case "xx":
+
+                break;
+            default:
+                    $("#toolTip").html(" ");
+                break
         }
     }
     $("#toolTip").css({top: b, left: a}).show()
+}
+/**
+ * 移除事件对象，防止事件污染
+ */
+function removeTopoTipHandler() {
+    $("#toolTip").html("").hide();
 }
 //计算str的像素宽度
 function calcStringPixelsCount(str, strFontSize) {
@@ -71,28 +74,30 @@ function calcStringPixelsCount(str, strFontSize) {
 
     return stringPixelsCount;
 }
-//GW_TextNode 对象： 拓扑中的文本，可拖放及设置名称，跟Node匹配，随节点而移动
-//Base Object:  JTopo.TextNode
-//构造函数： Secne -- 画布
-//          Pos   -- 节点坐标
-//          Name  -- 节点名称
-//
-function GW_TextNode(Parent,Scene, Pos, text) {
 
+/**
+ * 创建文本节点  拓扑中的文本，可拖放及设置名称，跟Node匹配，随节点而移动
+ * @param Parent
+ * @param Scene  画布
+ * @param Pos  节点坐标
+ * @param text   节点名称
+ * @constructor
+ */
+function GW_TextNode(Parent,Scene, Pos, text) {
     /* 对象属性 */
     this.objId;    //Private,JTopo.TextNode对象
     var tmpLeft = Pos.x;
     var tmpTop = Pos.y;
-    this.Font = "微软雅黑";
+    /*this.Font = "Microsoft YaHei";
     this.FontSize = "32px";
-    this.FontStyle = "bold";
+    this.FontStyle = "bold";*/
     this.FontColor= '0,0,0';
     this.ParentNode = Parent;
     var myThis = this;
 
     this.TextNode = function () {
         var textNode = new JTopo.TextNode(text);
-        textNode.font = this.FontStyle + this.FontSize + this.Font;   //jTopo 一个bug,必须按照这个顺序
+        textNode.font = '16px 微软雅黑';   //jTopo 一个bug,必须按照这个顺序
         textNode.fontColor = this.FontColor;
 
         textNode.setSize(12, 12);
@@ -108,7 +113,7 @@ function GW_TextNode(Parent,Scene, Pos, text) {
                 "top": tmpTop,
                 "left": tmpLeft,
                 "z-index": 100,
-                "font": 'bold 24px 微软雅黑'
+                "font": '16px 微软雅黑'
             }).show().val(e.text).focus().select();
             //e.text = "";
             textfield[0].JTopoNode = e;
@@ -145,14 +150,17 @@ function GW_TextNode(Parent,Scene, Pos, text) {
     this.TextNode();
 }
 
-
-//GW_Node 对象： 代表拓扑视图中的一个基本对象，可拖放及设置名称
-//Base Object:  JTopo.Node
-//构造函数： Secne -- 画布
-//          Pos   -- 节点坐标
-//          Name  -- 节点名称
-//          PrimeKey  -- 节点键值
-
+/**
+ * 创建节点  代表拓扑视图中的一个基本对象，可拖放及设置名称
+ * @param Scene 画布
+ * @param Pos  节点坐标
+ * @param nodeImage   节点图片
+ * @param Name   节点名称
+ * @param PrimeKey  节点键值
+ * @param Type  节点类型
+ * @param __node  节点数据
+ * @constructor
+ */
 function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
     /*  Node对象属性  */
     this.state = null;     //节点状态
@@ -212,14 +220,16 @@ function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
     this.hoverHandler = function (event) {
         topoNodeToolTipHandler(event,__node)
     };
-    this.mouseoutHandler =function (event) {
-        $("#toolTip").html("").hide();
+    this.mouseoutHandler = function(event) {
+        removeTopoTipHandler();
     }
 
     this.MouseDown= function(event){
+            removeTopoTipHandler();
             var e = event;
             disX = e.clientX - myThis.NodePos.x;
             disY = e.clientY- myThis.NodePos.y;
+
     }
 
     this.Drag = function(event){
@@ -277,8 +287,7 @@ function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
         this.SetSize(imgWidth, imgHeight);
     }
 
-    this.Click =function(event)
-    {
+    this.Click =function(event){
         if(event.button == 2){// 右键
             // 当前位置弹出菜单（div）
             $("#contextmenu").css({
@@ -355,15 +364,15 @@ function GW_DomainNode(Scene, Pos, nodeImage, Name,PrimeKey,Type) {
 
     /* Node对象行为 */
     //   this.Node()
-    //   this.SetState(newState)      设置对象
-    //   this.GetBkDefaultImg(nodeType)    根据节点类型获取节点默认的背景图片
+    //his.SetState(newState),      设置对象
+    // this.GetBkDefaultImg(nodeType)    根据节点类型获取节点默认的背景图片
 
     // 构造函数
 
     this.GW_DomainNode = function () {
         var node = new GW_Node(Scene, Pos, nodeImage, Name,PrimeKey,this.Type);
 
-        node.SetSize(200, 200);
+        node.SetSize(300, 200);
         this.objId = node;
 
     }
@@ -386,21 +395,28 @@ function GW_DomainNode(Scene, Pos, nodeImage, Name,PrimeKey,Type) {
 }
 
 
-//GW_BranchNode 对象： 代表拓扑视图中的一个基本对象，可拖放及设置名称
-//Base Object:  GW_Node
-//构造函数： Secne -- 画布
-//          Pos   -- 节点坐标
-//          nodeImage  -- 节点图片
-//          Name  -- domain name
-function GW_BranchNode(Scene, Pos, nodeImage, Name,PrimeKey,Type, __node) {
-    /*  Node对象属性  */
+/**
+ * 创建分支
+ * @param Scene  画布
+ * @param Pos  节点坐标
+ * @param nodeImage 节点图片
+ * @param Name  domain name
+ * @param PrimeKey
+ * @param Type
+ * @param __node 当前节点对象
+ * @constructor
+ */
+function GW_BranchNode(opts) {
     this.state = null;     //节点状态
-    this.objId;            // GW_Node节点对象ID
-    this.Name = Name;     //拓扑节点名称
-    this.PrimeKey = PrimeKey;        //节点对象数据库存储键值，唯一标记
-    this.Type = Type;
-    this.image = nodeImage;
+    this.objId;// GW_Node节点对象ID
+    this.childObjId = {};
+    var _node = opts.node;
+    this.Name = _node["id"].Name;     //拓扑节点名称
+    this.PrimeKey = _node["id"].PrimeKey;        //节点对象数据库存储键值，唯一标记
+    this.Type = opts["node"].type;
+    this.image = opts["nodeIcons"][opts.type].objId;
 
+    var Pos = new NodePostion(_node["location"]["x"],_node["location"]["y"]);
     /* Node对象行为 */
     //   this.Node()
     //   this.SetState(newState)      设置对象
@@ -409,11 +425,23 @@ function GW_BranchNode(Scene, Pos, nodeImage, Name,PrimeKey,Type, __node) {
     // 构造函数
 
     this.GW_BranchNode = function () {
-        var node = new GW_Node(Scene, Pos, nodeImage, Name,PrimeKey,this.Type,__node);
-
+        var node = new GW_Node(opts.scene, Pos, this.image, this.Name,this.PrimeKey,this.Type,opts.node);
         node.SetSize(300, 200);
-        node.SetFontSize("24px");
+        node.SetFontSize("32");
         this.objId = node;
+        var childDrive = _node.devType;
+        if(childDrive.length){
+            $.each(childDrive,function (i,drive) {
+                var img__ = opts["nodeIcons"][drive].objId;
+                var childtopo = new GW_Node(opts.scene, {
+                    x:Pos.x+(30*(i+1)),
+                    y:Pos.y+(30*(i+1))
+                },  img__, drive,(drive+(i+1)),drive,opts.node);
+                childtopo.SetSize(30, 30);
+                opts.scene.NodeAdd(childtopo)
+
+            })
+        }
     }
 
 
@@ -434,6 +462,365 @@ function GW_BranchNode(Scene, Pos, nodeImage, Name,PrimeKey,Type, __node) {
 
     this.GW_BranchNode();
 }
+
+
+/**
+ * ==============================================================================
+ * 重构Topo整体
+ * 作者 by wanggang
+ * 日期 2018-09-07
+ * ==============================================================================
+ */
+/**
+ * 创建canvas
+ * @param opts
+ * @return {string}
+ */
+/*function createImage(opts) {
+    var canvas = document.createElement('canvas');
+    var ctx= canvas.getContext('2d');
+    canvas.width=opts.width;
+    canvas.height=opts.height;
+    ctx.rect(0,0,canvas.width,canvas.heigh);
+    ctx.fillStyle="transparent";
+    ctx.fill();
+    var nodeImage= new Image;
+    nodeImage.src=opts.src;
+    ctx.drawImage(nodeImage,0,0,canvas.width,canvas.height);
+    var flagImage= new Image;
+    flagImage.src=userPath+"../../images/cleditor/devicedisable.jpg";
+    ctx.drawImage(flagImage,c.width-16,c.height-8,12,4);
+    var box = canvas.toDataURL("image/png");
+    return box;
+}*/
+/**
+ * 初始化拓扑
+ * @param canvasID canvas的ID
+ * @param isShowTopoBar 是否显示工具栏
+ */
+
+function loadTopo(params,successCallback,errorCallback){
+       $.ajax({
+           url: "/cmd",
+           type: "POST",
+           data: JSON.stringify(params),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (data) {
+               //console.info(" --> ajaxJsonPost success: " + JSON.stringify(data, null, 2));
+               successCallback && successCallback(data);
+           },
+           failure: function (info) {
+               //console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
+              // _failure(data);
+               errorCallback && errorCallback(info)
+           }
+       })
+}
+function successCall(data) {
+    if(data.length && data[0].success){
+        loadBranchTopo(data[0].result);
+    }else{
+        alert("暂无数据！")
+    }
+}
+function errorCall(info) {
+    console.error(" --> ajaxJsonPost failure: " + JSON.stringify(info, null, 2));
+}
+
+/**
+ * =============================================================
+ * TOPO 相关
+ * 重构 by wanggang
+ * 日期 2018-09-07
+ * =============================================================
+ */
+/**
+ * 注册GW命名空间
+ */
+;(function () {
+    var root = this;
+
+    var GW = function (obj) {
+        if (obj instanceof GW) return obj;
+        if (!(this instanceof GW)) return new GW(obj);
+    };
+    if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports) {
+            exports = module.exports = GW;
+        }
+        exports.GW = GW;
+    } else {
+        root.GW = GW;
+    }
+    GW.VERSION = '0.0.1';
+}).call(this);
+//var canvas,stage,scene;
+/**
+ * 初始化Topo
+ * @param canvasID 画布ID
+ * @param stage 舞台
+ * @param scene 场景
+ * @return {JTopo.Scene|*|b}
+ */
+function initTopo(canvasID, stage, scene) {
+    /**
+     * canvas实例
+     */
+    GW.canvas = document.getElementById(canvasID);
+    /**
+     * stage实例
+     */
+    GW.stage = new JTopo.Stage(canvas);
+    /**
+     * scene实例
+     */
+    GW.scene = new JTopo.Scene();
+    /**
+     * scene实例id 默认为"";
+     */
+    GW.scene.id="";
+
+    /**
+     * scene实例错误的Unicode字符串!"";
+     */
+    GW.scene.parentId="";
+
+    /**
+     * 鹰眼
+     */
+    GW.stage.eagleEye.visible = false;
+    GW.scene.translateY=20;
+    /**
+     * 背景图
+     * */
+    GW.scene.background = '';
+    /*if(params["scene.id"]!= undefined&&params["scene.id"]!=null){
+     scene.id=params["scene.id"];
+     }*/
+
+    GW.stage.add(GW.scene);
+
+    GW._branch = {
+        "center":null,
+        "edge":[]
+    };
+    return GW.scene;
+}
+/**
+ * 设置canvas大小
+ */
+function setCanvasSize(opts) {
+    GW.canvas.width = 1700;
+    GW.canvas.height = 1300;
+}
+
+/**
+ * 加载分支
+ * @param result
+ */
+function loadBranchTopo(result) {
+    if(result.length){
+        renderBranchTopo(result[0]);
+    }
+}
+/**
+ * 渲染分支Topo
+ * @param data
+ */
+function renderBranchTopo(data) {
+    var _id = data.id,
+        _links = data.links,
+        _nodes = data.nodes;
+    $.each(_nodes,function (i,node) {
+        createBranch(node);
+    });
+    createEdgeDeviceLink();
+}
+/**
+ * 创建分支
+ * @param obj 分支数据
+ */
+function createBranch(obj) {
+    createBackgroundNode(obj);
+    (obj.EdgeDevice&&!$.isEmptyObject(obj.EdgeDevice))?createEdgeDeviceNode(obj):null;
+    createAutoIconNode(obj);
+}
+/**
+ * 创建带背景图的节点
+ * @param container 承载容器
+ * @param obj 依赖数据
+ */
+function createBackgroundNode(obj) {
+    var node = new JTopo.Node();
+    node.setBound((obj.location.x),(obj.location.y),300,200);
+    node.zIndex = 1;
+    node.setImage("/resource/branchCloud.png");
+    //container.add(node);
+    GW.scene.add(node);
+
+}
+/**
+ * 创建分支设备的出口设备节点并记录节点对应关系
+ * @param container
+ * @param obj
+ */
+function createEdgeDeviceNode(obj) {
+    var edgeNode = new JTopo.Node();
+    edgeNode.setBound((obj.location.x)+150,(obj.location.y+160),60,45);
+    edgeNode.zIndex = 2;
+    edgeNode.alpha =1;
+    edgeNode.setImage(gw_IconImgArray[obj.EdgeDevice.Type].imgUrl);
+    //(edgeNode);
+    edgeNode.addEventListener("mouseover",function (event) {
+        topoNodeToolTipHandler(event,obj.EdgeDevice,"edge");
+    })
+    edgeNode.addEventListener("mouseout",function (event) {
+        removeTopoTipHandler();
+    })
+    GW.scene.add(edgeNode);
+    obj.devType ? createBranchDriveIconNode(obj,edgeNode):null;
+    obj.id.PrimeKey == 0 ? GW._branch.center = edgeNode :GW._branch.edge.push(edgeNode);
+}
+/**
+ * 创建自定义图标节点
+ * @param container
+ * @param obj
+ */
+function createAutoIconNode(obj) {
+    var iconNode = new JTopo.Node(obj.id.Name || "");
+    iconNode.setBound((obj.location.x+20),(obj.location.y+20),40,40);
+    iconNode.font = "bold 16px 微软雅黑";
+    iconNode.fontColor = "30,144,255";
+    iconNode.zIndex = 3;
+    iconNode.addEventListener("mouseover",function (event) {
+        topoNodeToolTipHandler(event,obj.id,"branch");
+    })
+    iconNode.addEventListener("mouseout",function (event) {
+        removeTopoTipHandler();
+    })
+    obj.id.PrimeKey == 0 ? iconNode.setImage("/resource/logic/AreaDevice/louyu.png") : iconNode.setImage("/resource/logic/AreaDevice/wlzx.png");
+    //container.add(iconNode);
+    GW.scene.add(iconNode);
+}
+/**
+ * 创建分支中的设备终端
+ * @param container
+ * @param obj
+ * @param ccNode
+ */
+function createBranchDriveIconNode(obj,ccNode) {
+    $.each(obj.devType,function (i,drive) {
+        var iconUrl = gw_IconImgArray[drive].imgUrl;
+        var driveNode = new JTopo.Node(drive);
+        driveNode.setBound((obj.location.x)+ (i+1)*50, ((obj.location.y)+ 100),30,30);
+        driveNode.font = "12px 微软雅黑";
+        driveNode.fontColor = "0,0,0";
+        driveNode.zIndex = 4;
+        driveNode.setImage(iconUrl);
+        driveNode.addEventListener("mouseover",function (event) {
+            topoNodeToolTipHandler(event,drive,"device");
+
+        })
+        driveNode.addEventListener("mouseout",function (event) {
+            removeTopoTipHandler();
+        })
+        createDevLink(ccNode,driveNode);
+        //container.add(driveNode);
+        GW.scene.add(driveNode);
+    })
+
+}
+/**
+ * 创建分支内部设备连线
+ * @param container
+ * @param cc 出口设备
+ * @param ct 分之内当前设备
+ */
+function createDevLink(cc,ct) {
+    var link = new JTopo.Link(cc, ct);
+    //container.add(link);
+    link.strokeColor = "220,220,220";
+    GW.scene.add(link);
+}
+/**
+ * 创建出口设备连线逻辑
+ */
+function createEdgeDeviceLink() {
+    if(GW._branch.center && GW._branch.edge.length){
+        var edges = GW._branch.edge;
+        $.each(edges,function (i,edge) {
+            edge?newFoldLink(GW._branch.center, edge,'','vertical'):null;
+        })
+    }
+}
+/**
+ * 出口设备连线操作
+ * @param nodeA
+ * @param nodeZ
+ * @param text
+ * @param direction
+ * @param dashedPattern
+ * @return {*|g}
+ */
+function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern){
+    var flink = new JTopo.Link(nodeA, nodeZ, text);
+    flink.arrowsRadius = 15;
+    flink.lineWidth = 3; // 线宽
+    flink.bundleOffset = 60; // 折线拐角处的长度
+    flink.bundleGap = 20; // 线条之间的间隔
+    flink.textOffsetY = 3; // 文本偏移量（向下3个像素）
+    flink.strokeColor = JTopo.util.randomColor(); // 线条颜色随机
+    flink.dashedPattern = dashedPattern;
+    GW.scene.add(flink);
+    return flink;
+}
+
+
+function dragAddNode(pos,image,name,PrimeKey,type) {
+
+    var textWidth = calcStringPixelsCount(name,"12px");
+    var textOffsetPos =  {"x":-((textWidth - 45)/2) , "y":40};  //默认正下方，居中
+    var node = new JTopo.Node();
+    node.setImage(image.src);
+    switch (type){
+        case "edge": //出口设备
+            node.setSize(60,45);
+            break;
+        case "terminal":
+            node.setSize(30,30);
+            break;
+        case "dept":
+            node.setSize(40,40);
+            break;
+        case "branch":
+            node.setSize(300,200);
+            break;
+        default:
+            node.setSize(26,26);
+            break;
+    }
+    //node.setSize(44,44);
+    node.setLocation(pos.x, pos.y);
+    GW.scene.add(node);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* 链接两个GW_Node */
@@ -530,7 +917,7 @@ function newLine(Scene, NodeA, NodeB) {
 function GW_stage(canvas) {
     var objId = null;
     this.dbClickHandle = null;
-    this.SceneArray = new Object();
+    this.SceneArray = {};
 
     this.stage = function (canvas) {
         objId = new JTopo.Stage(canvas);
@@ -596,6 +983,7 @@ function GW_Scene(stageIn, SceneName) {
         }
         ObjId.add(GW_Node.getJTopoNode());
     }
+
 
     this.TextNodeAdd = function (GW_TextNode){
         ObjId.add(GW_TextNode);
