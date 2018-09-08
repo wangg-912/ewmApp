@@ -24,7 +24,7 @@
         /*background:#5F768B; */
         
         #TopoToolBar ul {
-            repeat-x left top;
+            repeat-x:left top;
             padding: 1px 1px;
         }
         
@@ -41,13 +41,13 @@
         }
         
         #TopoToolBar a:hover {
-            no-repeat left top;
+            no-repeat:left top;
             float: left;
             display: block;
         }
         
         #TopoToolBar a:active {
-            no-repeat left top;
+            no-repeat:left top;
             float: left;
             display: block;
         }
@@ -182,6 +182,8 @@
     <script type="text/javascript" src="../js/utils/jtopoBase.js"></script>
     <script type="text/javascript" src="../js/page/jdataBase.js"></script>
     <script type="text/javascript" charset="utf-8" src="../js/infrastructure.js"></script>
+    <script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
     <!--<script type="text/javascript" src="toolbar.js"></script>-->
     <script id='code'>
         var g_CurStage;
@@ -282,6 +284,11 @@
             <i class="Hui-iconfont">&#xe67f;</i> 首页
             <span class="c-gray en">&gt;</span> 拓扑编排
             <span id="navLink"></span>
+        </div>
+        <div class="f-r">
+            <a class="btn btn-success radius" id="createTopo" data-title="新建拓扑" data-href="TopoMng/create_topo.html" style="line-height:1.6em;margin-top:3px; margin-left: 10px;" href="javascripit:void(0);" title="新建拓扑">
+                <i class="Hui-iconfont">&#xe610;</i>
+            </a>
         </div>
         <div class="f-r">
             <a class="btn btn-success radius" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
@@ -554,7 +561,11 @@
             var divTopoTool = document.getElementById('tools');
             //debugger;
             LoadTopoTools(divTopoTool);
-        }
+        };
+        //新建拓扑
+        $("#createTopo").unbind("click").click(function(){
+            Hui_admin_tab(this);
+        });
     </script>
 
 </body>
