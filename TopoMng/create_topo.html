@@ -1,10 +1,489 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+<style>
+    body {
+        width: 100%;
+        height: 500px;
+        font-size: 0;
+        text-align: left;
+    }
+
+    .displayArea {
+        display: inline-block;
+        width: 79.6%;
+        height: 100%;
+    / / background : #93a1a1;
+        font-size: 14px;
+        position: relative;
+        vertical-align: top;
+        horiz-align: left;
+        border: 1px solid black;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .MonitorMoudle {
+        display: inline-block;
+        width: 98%;
+        height: 500px;
+    / / background : #7d7d7d;
+        font-size: 14px;
+        position: relative;
+        vertical-align: center;
+        horiz-align: center;
+        border: 1px solid slategray;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        box-shadow: 4px 4px 2px #888888;
+        -moz-box-shadow: 4px 4px 2px #888888;
+        -webkit-box-shadow: 4px 4px 2px #888888;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .tree {
+        display: inline-block;
+        width: 20%;
+        height: 100%;
+    / / background : #93a1a1;
+        font-size: 14px;
+        position: relative;
+    / / margin-top : 10 px;
+        vertical-align: top;
+        horiz-align: left;
+        border: 1px solid black;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .radio {
+        display: inline-block;
+        width: 25%;
+        font-size: 14px;
+        position: relative;
+        margin-top: 6px;
+        margin-left: 16px;
+        vertical-align: top;
+        horiz-align: left;
+    / / border : black;
+    }
+
+    .search {
+        display: inline-block;
+        width: 80%;
+        font-size: 14px;
+        position: relative;
+        margin-top: 4px;
+        margin-left: 10px;
+        vertical-align: top;
+        horiz-align: center;
+    / / border : black;
+    }
+
+    .chart {
+        display: inline-block;
+        width: 80%;
+    / / height : 100 %;
+    / / background : #93a1a1;
+        font-size: 14px;
+        position: relative;
+        vertical-align: top;
+        horiz-align: left;
+        border: 1px solid black;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    #outer {
+        position: relative;
+        width: 80%;
+        height: 2px;
+        top: 10px;
+        margin: 10px auto;
+        horiz-align: center;
+        background-color: red;
+    }
+
+    #inner {
+        position: relative;
+        width: 200px;
+        height: 2px;
+        background-color: #0000cc;
+    }
+
+    #play {
+        position: relative;
+        top: -16px;
+        left: 30px;
+        width: 40px;
+        height: 30px;
+        background-color: #dd0000;
+        cursor: pointer;
+        background: url(../resource/play.png);
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+    / / border : 1 px;
+    }
+
+    /*树样式调整*/
+    .ztree [treenode_ico]{
+        width: 13px;
+        font-size: 14px;
+        height: 0;
+        margin: 0 2px 2px 2px;
+    }
+    .ztree li span.button.Hui-iconfont{
+        line-height: inherit;
+        background-image:url();
+    }
+</style>
+<style type="text/css">
+    .ztree li span.button.add {
+        margin-left: 2px;
+        margin-right: -1px;
+        background-position: -144px 0;
+        vertical-align: top;
+        *vertical-align: middle
+    }
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5shiv.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css"/>
+    <link rel="stylesheet" href="../lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <script type="text/javascript" charset="utf-8" src="../js/infrastructure.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/page/product-category.js"></script>
+    <title>新增拓扑</title>
+
 </head>
 <body>
-    create topo
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span> 拓扑管理
+    <span class="c-gray en">&gt;</span> 拓扑编排
+    <span class="c-gray en">&gt;</span> 新增编排
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="tree">
+    <div class="radio"><input type="radio" name="view" value="topoVC" checked="checked" id="topoVC"/> <label for="topoVC">拓扑视角</label></div>
+    <div class="radio"><input type="radio" name="view" value="atVC" id="atVC"/> <label for="atVC">关注视角</label></div>
+    <div class="search">
+        <input type="text" name="" id="hostName" placeholder=" 主机/服务查询" style="width:180px" class="input-text">
+        <button name="" id="treeSearch" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i>
+            查询
+        </button>
+    </div>
+    <div>
+        <ul id="topoViewTree" class="ztree"></ul>
+        <ul id="attentionViewTree" class="ztree" style="display: none;"></ul>
+    </div>
+</div>
+<!--右部分-->
+<div class="displayArea">
+    <table class="table table-border table-bordered table-bg" id="monitorHostT">
+        <thead>
+            <tr>
+                <th scope="col" colspan="9" style="font-size: 18px;">监控主机</th>
+            </tr>
+            <tr class="text-c">
+                <th width="40">主机名称</th>
+                <th width="40">主机类型</th>
+                <th width="90">主机IP</th>
+                <th width="90">主机MAC</th>
+                <th width="150">所属网络</th>
+                <th width="200">备注</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="text-c">
+            <td>张三</td>
+            <td>PC</td>
+            <td>192.168.2.11</td>
+            <td>aa:00:aa:cc</td>
+            <td>成都分支</td>
+            <td>机器正常运行中</td>
+        </tr>
+        </tbody>
+     </table>
+    <table class="table table-border table-bordered table-bg" id="monitorNetDevT" style="margin-top: 10px;">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9" style="font-size: 18px;">监控网络设备</th>
+        </tr>
+        <tr class="text-c">
+            <th width="40">设备名称</th>
+            <th width="40">设备属性</th>
+            <th width="90">设备管理IP地址</th>
+            <th width="150">所属网络</th>
+            <th width="200">备注</th>
+            <th width="200">高级配置</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-c">
+            <td>张三</td>
+            <td>PC</td>
+            <td>192.168.2.11</td>
+            <td>aa:00:aa:cc</td>
+            <td>成都分支</td>
+            <td>机器正常运行中</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-border table-bordered table-bg" id="monitorLinkT" style="margin-top: 10px;">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9" style="font-size: 18px;">监控链路</th>
+        </tr>
+        <tr class="text-c">
+            <th width="90">链路名称</th>
+            <th width="90">链路起点设备</th>
+            <th width="90">链路终点设备</th>
+            <th width="50">链路类型</th>
+            <th width="40">链路上行带宽(M)</th>
+            <th width="40">链路下行带宽(M)</th>
+            <th width="40">告警阀值</th>
+            <th width="90">高级设置</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-c">
+            <td>张三</td>
+            <td>PC</td>
+            <td>192.168.2.11</td>
+            <td>aa:00:aa:cc</td>
+            <td>成都分支</td>
+            <td>机器正常运行中</td>
+            <td>机器正常运行中</td>
+            <td>机器正常运行中</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-border table-bordered table-bg" id="monitorServer" style="margin-top: 10px;">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9" style="font-size: 18px;">监控服务</th>
+        </tr>
+        <tr class="text-c">
+            <th width="90">服务名称</th>
+            <th width="90">服务IP地址</th>
+            <th width="90">服务端口</th>
+            <th width="50">服务部署主机IP</th>
+            <th width="90">服务部署模式</th>
+            <th width="90">所属网络</th>
+            <th width="150">备注</th>
+            <th width="90">高级设置</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-c">
+            <td>张三</td>
+            <td>PC</td>
+            <td>192.168.2.11</td>
+            <td>aa:00:aa:cc</td>
+            <td>成都分支</td>
+            <td>机器正常运行中</td>
+            <td>机器正常运行中</td>
+            <td>机器正常运行中</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-border table-bordered table-bg" id="monitorFlow" style="margin-top: 10px;">
+        <thead>
+            <tr>
+                <th scope="col" colspan="9" style="font-size: 18px;">监控流量</th>
+            </tr>
+        </thead>
+        <tbody >
+        </tbody>
+    </table>
+    <div class="containe">
+        <div class="row cl" style="margin-top: 15px; width: 100%;">
+            <label class="col-xs-1 col-sm-2" style="text-align: right">拓扑命名：</label>
+            <div class="formControls col-xs-3 col-sm-4">
+                <input type="text" class="input-text" autocomplete="off" placeholder="拓扑名称">
+            </div>
+            <div class="">
+                <button name="" id="createTopoMon" class="btn btn-success"><i class="Hui-iconfont">&#xe604;</i>创建拓扑监控</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<!--<script type="text/javascript" src="LeftTree.js"></script>
+<script type="text/javascript" src="slidebar.js"></script>-->
+
+<!--<script type="text/javascript" src="../lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+<script type="text/javascript" src="../lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+<script type="text/javascript" src="TrafficChart.js"></script>
+<script type="text/javascript" src="RealMon.js"></script>-->
+
+<!--新增拓扑 业务代码-->
+<script>
+    $(function(){
+        topoTreeInit();
+        eventInit();
+    });
+    //初始化TOPO树
+    function topoTreeInit() {
+        var setting = {
+            view: {
+                selectedMulti: false,
+                fontCss: getFontCss
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick:nodeClick,
+                onDblClick:onDblClick
+            }
+        };
+        var zNodes = [
+            {id: 1, pId: 0, name: "深圳总部",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
+            {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
+            {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
+            {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+            {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+            {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+            {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
+
+        ];
+        $.fn.zTree.init($("#topoViewTree"), setting, zNodes);
+    }
+    //初始化关注树
+    function atTreeInit() {
+        var setting = {
+            view: {
+                selectedMulti: false,
+                fontCss: getFontCss
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick:nodeClick,
+                onDblClick:onDblClick
+            }
+        };
+        var zNodes = [
+            {id: 1, pId: 0, name: "深圳总部(关注视角)",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
+            {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
+            {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
+            {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+            {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+            {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+            {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
+
+        ];
+        $.fn.zTree.init($("#attentionViewTree"), setting, zNodes);
+    }
+    // 为高亮和不高亮的节点设置样式
+    function getFontCss(treeId, treeNode) {
+        return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+    }
+    //双击关注事件
+    function onDblClick(event, treeId, treeNode) {
+        alert("关注成功!");
+        console.log("双击关注");
+    }
+    //事件初始化
+    function eventInit() {
+        viewChangeEvent();
+        treeSearchEvent();
+        createTopoMonEvent();
+    }
+    //视图切换事件
+    function viewChangeEvent() {
+        $("[name='view']").change(function(){
+           if($(this).val() === "topoVC"){
+               $("#attentionViewTree").hide();
+               $("#topoViewTree").show();
+               topoTreeInit();
+           }else{
+               $("#topoViewTree").hide();
+               $("#attentionViewTree").show();
+                atTreeInit();
+           }
+        });
+    }
+    //搜索树事件
+    function treeSearchEvent(){
+        var highLightNodes = [];
+        $("#treeSearch").unbind("click").click(function () {
+            $("#topoVC").prop("checked") ? searchTreeNode("topoViewTree") : searchTreeNode("attentionViewTree");
+        });
+        //搜索树节点
+        function searchTreeNode(treeId){
+            var treeObj = $.fn.zTree.getZTreeObj(treeId);
+            var searchVal = $.trim($("#hostName").val());
+            updateNodes(highLightNodes,false,treeObj);//取消上次搜索的高亮
+            highLightNodes = treeObj.getNodesByFilter(function (node){
+                node.highlight = false;
+                return searchVal && (node.name.indexOf(searchVal)>-1 || node.mac.indexOf(searchVal)>-1);
+            });
+            console.log(highLightNodes)
+            updateNodes(highLightNodes,true,treeObj);
+        }
+        //更新节点
+        function updateNodes(nodes,highLightFlag,treeObj) {
+            for( var i=0, l=nodes.length; i<l; i++) {
+                nodes[i].highlight = highLightFlag;
+                treeObj.updateNode(nodes[i]);
+                highLightFlag ? treeObj.expandNode(highLightNodes[i],true) : null;
+            }
+        }
+    }
+
+
+    /***************************** 监控页面信息(右部分) ****************************/
+    function nodeClick(event, treeId, treeNode){
+
+    }
+    //创建拓扑监控
+    function createTopoMonEvent() {
+        $("#createTopoMon").unbind("click").click(function(){
+           //todo
+        });
+    }
+</script>
 </body>
 </html>
