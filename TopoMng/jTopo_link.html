@@ -233,11 +233,13 @@
                 op: "loadBranchView"
             }], successCall, errorCall);
 
+            initCheckbox();
+
             $("#contextmenu a").click(function() {
                 var text = $(this).text();
 
                 if (text == '删除该节点') {
-                    scene.remove(currentNode);
+                    GW.scene.remove(currentNode);
                     currentNode = null;
                 }
                 /*if(text == '撤销上一次操作'){
@@ -299,26 +301,32 @@
             <a title="展开工具条" onclick="ToolBarTagle()">
                 <img id="toolcmd" status="open" src="../resource/icon/config-show.png" width="20px" height="20px" alt="工具条" align="absmiddle" />
             </a>
+            <div id="TopoToolBar" style="width: 0px">
+                <ul>
+                    <li>
+                        <img src="../resource/icon/eye-minus.png" alt="隐藏侧边栏" title="隐藏侧边栏" width="20px" height="20px" align="absmiddle" />
+                    </li>
+                    <li>
+                        <img src="../resource/icon/font-size.png" alt="设置字体" title="设置字体" width="20px" height="20px" align="absmiddle" />
+                    </li>
+                    <li>
+                        <img src="../resource/icon/del-backimg.png" alt="删除背景" title="删除背景" width="20px" height="20px" align="absmiddle" onclick="removeBkimg()" />
+                    </li>
+                    <li>
+                        <img src="../resource/icon/zhexian.png" alt="折线" title="折线连接" width="20px" height="20px" align="absmiddle" />
+                    </li>
+                    <li>
+                        <img src="../resource/icon/save.png" alt="保存" title="保存拓扑" width="20px" height="20px" align="absmiddle" />
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div id="TopoToolBar" style="width: 0px">
-            <ul>
-                <li>
-                    <img src="../resource/icon/eye-minus.png" alt="隐藏侧边栏" title="隐藏侧边栏" width="20px" height="20px" align="absmiddle" />
-                </li>
-                <li>
-                    <img src="../resource/icon/font-size.png" alt="设置字体" title="设置字体" width="20px" height="20px" align="absmiddle" />
-                </li>
-                <li>
-                    <img src="../resource/icon/del-backimg.png" alt="删除背景" title="删除背景" width="20px" height="20px" align="absmiddle" onclick="removeBkimg()" />
-                </li>
-                <li>
-                    <img src="../resource/icon/zhexian.png" alt="折线" title="折线连接" width="20px" height="20px" align="absmiddle" />
-                </li>
-                <li>
-                    <img src="../resource/icon/save.png" alt="保存" title="保存拓扑" width="20px" height="20px" align="absmiddle" />
-                </li>
-            </ul>
+        <div  id="checkbox_container" style="display: block; width: 226px; float: right;margin-right: 40px;">
+            <label for="_link"><input type="checkbox" name="modal" id="_link">链路监控</label>
+            <label for="_flow"><input type="checkbox" name="modal" id="_flow">流量监控</label>
+            <label for="_service"><input type="checkbox" name="modal" id="_service">服务监控</label>
         </div>
+
     </nav>
 
     <textarea id="textfield" style="display:none;width: 100px;height: 25px; position: absolute;" onkeydown="if(event.keyCode==13)this.blur();"></textarea>
@@ -376,7 +384,6 @@
 
                     //准备画线
                     if ($(this).attr("id") == "line") {
-                        //$(this).parent().parent().addClass("selected");
                         if ($(this).hasClass("border")) {
                             $(this).removeClass('border');
                             tmpLineAllow = false;
@@ -434,7 +441,6 @@
             mousedown: function(event) {
                 //1.克隆临时节点，跟随鼠标进行移动
                 drag.tmp_elm = $(drag.old_elm).clone();
-
                 //2.计算 节点 和 光标 的坐标
                 drag._x = $(drag.old_elm).offset().left;
                 drag._y = $(drag.old_elm).offset().top;
@@ -453,10 +459,10 @@
                 });
 
                 //4.添加临时节点
-                console.log($(drag.old_elm).parent());
-                console.log(drag.tmp_elm);
+               // console.log($(drag.old_elm).parent());
+                //console.log(drag.tmp_elm);
                 tmp = $(drag.old_elm).parent().append(drag.tmp_elm);
-                console.log(tmp);
+                //console.log(tmp);
                 drag.tmp_elm = $(tmp).find(drag.tmp_elm);
                 $(drag.tmp_elm).css('cursor', 'move');
 

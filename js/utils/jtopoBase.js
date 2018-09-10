@@ -520,6 +520,7 @@ function loadTopo(params,successCallback,errorCallback){
 function successCall(data) {
     if(data.length && data[0].success){
         loadBranchTopo(data[0].result);
+        createLinkForMannul();
     }else{
         alert("暂无数据！")
     }
@@ -603,7 +604,10 @@ function initTopo(canvasID, stage, scene) {
 
     GW._branch = {
         "center":null,
-        "edge":[]
+        "edge":[],
+        "_b":{},
+        "rs":{},
+        "ls":{}
     };
     return GW.scene;
 }
@@ -632,6 +636,7 @@ function renderBranchTopo(data) {
     var _id = data.id,
         _links = data.links,
         _nodes = data.nodes;
+        GW.branchLinks = _links;
     $.each(_nodes,function (i,node) {
         createBranch(node);
     });
@@ -667,7 +672,7 @@ function createBackgroundNode(obj) {
  */
 function createEdgeDeviceNode(obj) {
     var edgeNode = new JTopo.Node();
-    edgeNode.setBound((obj.location.x)+150,(obj.location.y+160),60,45);
+    obj.id.PrimeKey == 0 ?edgeNode.setBound((obj.location.x)+150,(obj.location.y)+160,60,45):edgeNode.setBound((obj.location.x)+150,(obj.location.y),60,45);
     edgeNode.zIndex = 2;
     edgeNode.alpha =1;
     edgeNode.setImage(gw_IconImgArray[obj.EdgeDevice.Type].imgUrl);
@@ -678,9 +683,11 @@ function createEdgeDeviceNode(obj) {
     edgeNode.addEventListener("mouseout",function (event) {
         removeTopoTipHandler();
     })
+    //edgeNode.alarm = obj.alert;
+    GW._branch._b[(obj.id.PrimeKey)] = edgeNode;
     GW.scene.add(edgeNode);
     obj.devType ? createBranchDriveIconNode(obj,edgeNode):null;
-    obj.id.PrimeKey == 0 ? GW._branch.center = edgeNode :GW._branch.edge.push(edgeNode);
+    //obj.id.PrimeKey == 0 ? GW._branch.center = edgeNode :GW._branch.edge.push(edgeNode);
 }
 /**
  * 创建自定义图标节点
@@ -720,7 +727,6 @@ function createBranchDriveIconNode(obj,ccNode) {
         driveNode.setImage(iconUrl);
         driveNode.addEventListener("mouseover",function (event) {
             topoNodeToolTipHandler(event,drive,"device");
-
         })
         driveNode.addEventListener("mouseout",function (event) {
             removeTopoTipHandler();
@@ -747,12 +753,24 @@ function createDevLink(cc,ct) {
  * 创建出口设备连线逻辑
  */
 function createEdgeDeviceLink() {
-    if(GW._branch.center && GW._branch.edge.length){
+    $.each(GW.branchLinks,function (i,ls) {
+        var tep = ls.endpoint,
+            fromId = tep[0].refNode || "0",
+            toId = tep[1].refNode || "";
+        if(fromId && toId){
+            var flink = newFoldLink(GW._branch._b[fromId], GW._branch._b[toId],'','vertical');
+            GW._branch.ls[(tep[0].refNode+"-"+tep[1].refNode)] = flink;
+        }
+    })
+    /*if(GW._branch.center && GW._branch.edge.length){
         var edges = GW._branch.edge;
         $.each(edges,function (i,edge) {
-            edge?newFoldLink(GW._branch.center, edge,'','vertical'):null;
+            if(edge){
+                newFoldLink(GW._branch.center, edge,'','vertical');
+                //newFoldLink(edge,GW._branch.center,'','vertical')
+            }
         })
-    }
+    }*/
 }
 /**
  * 出口设备连线操作
@@ -763,17 +781,19 @@ function createEdgeDeviceLink() {
  * @param dashedPattern
  * @return {*|g}
  */
-function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern){
-    var flink = new JTopo.Link(nodeA, nodeZ, text);
-    flink.arrowsRadius = 15;
-    flink.lineWidth = 3; // 线宽
-    flink.bundleOffset = 60; // 折线拐角处的长度
-    flink.bundleGap = 20; // 线条之间的间隔
-    flink.textOffsetY = 3; // 文本偏移量（向下3个像素）
-    flink.strokeColor = JTopo.util.randomColor(); // 线条颜色随机
-    flink.dashedPattern = dashedPattern;
-    GW.scene.add(flink);
-    return flink;
+function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern,styles){
+    //var link = new JTopo.FlexionalLink(nodeA, nodeZ, text);
+    var link = new JTopo.Link(nodeA, nodeZ, text);
+    //var link = new JTopo.FoldLink(nodeA, nodeZ,text);
+    link.arrowsRadius = 8;
+    link.lineWidth = 2; // 线宽
+    link.offsetGap = 0;
+    link.bundleGap = 20; // 线条之间的间隔
+    link.textOffsetY = 0; // 文本偏移量（向下15个像素）
+    link.strokeColor = JTopo.util.randomColor(); // 线条颜色随机
+    link.dashedPattern = dashedPattern;
+    GW.scene.add(link);
+    return link;
 }
 /**
  * 拖放停止时，在画布上添加节点
@@ -810,6 +830,159 @@ function dragAddNode(pos,image,name,PrimeKey,type) {
     //node.setSize(44,44);
     node.setLocation(pos.x, pos.y);
     GW.scene.add(node);
+}
+/**
+ * 启用连线编辑的逻辑
+ */
+function createLinkForMannul() {
+    var beginNode = null,
+        tempNodeA = new JTopo.Node('tempA');
+    tempNodeA.setSize(1, 1);
+    var tempNodeZ = new JTopo.Node('tempZ');
+    tempNodeZ.setSize(1, 1);
+
+    var link = new JTopo.Link(tempNodeA, tempNodeZ);
+    if(tmpPolyLineAllow == true)
+        link = new JTopo.FoldLink(tempNodeA, tempNodeZ);
+    link.lineWidth = 1;
+
+    //节点连线
+    GW.scene.mouseup(function(e){
+        if((tmpLineAllow == false) && (tmpPolyLineAllow == false))
+            return;
+        if(e.button == 2){
+            GW.scene.remove(link);
+            beginNode = null;
+            return;
+        }
+        if(e.target != null && e.target instanceof JTopo.Node){
+            if(beginNode == null){
+                beginNode = e.target;
+                GW.scene.add(link);
+                tempNodeA.setLocation(e.x, e.y);
+                tempNodeZ.setLocation(e.x, e.y);
+            }else if(beginNode !== e.target){
+                var endNode = e.target;
+                if(tmpLineAllow == true)
+                    var l = new JTopo.Link(beginNode, endNode);
+                if(tmpPolyLineAllow == true)
+                    var l = new JTopo.FoldLink(beginNode, endNode);
+                GW.scene.add(l);
+                beginNode = null;
+                GW.scene.remove(link);
+            }else{
+                beginNode = null;
+            }
+        }else{
+            GW.scene.remove(link);
+            beginNode = null;
+        }
+    });
+    GW.scene.mousedown(function(e){
+        if((tmpLineAllow == false) && (tmpPolyLineAllow == false))
+            return;
+        if(e.target == null || e.target === beginNode || e.target === link){
+            GW.scene.remove(link);
+            beginNode = null;
+        }
+    });
+
+    GW.scene.mousemove(function(e){
+        if((tmpLineAllow == false) && (tmpPolyLineAllow == false))
+            return;
+        tempNodeZ.setLocation(e.x, e.y);
+    });
+}
+/**
+ * 初始化拓扑链路，服务，流量的事件入口
+ */
+function initCheckbox() {
+    $("#_link").unbind("click").click(function () {
+        var flag = $(this)[0].checked;
+        if(flag){
+            var _links = [];
+            for(var i =1; i<6; i++){
+                var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
+                _links.push({"fromId":0,"toId":i,"text":text})
+            }
+            getRelationByCheckType(_links,"link");
+            setInterval(function () {
+                for(var i =1; i<6; i++){
+                    var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
+                    _links.push({"fromId":0,"toId":i,"text":text})
+                }
+                getRelationByCheckType(_links,"link");
+            },2000)
+        }else{
+            clearAllLinkInfo();
+        }
+    })
+    $("#_flow").unbind("click").click(function () {
+        var flag = $(this)[0].checked;
+        if(flag){
+            var _links = [];
+            for(var i =1; i<6; i++){
+                var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
+                _links.push({"fromId":0,"toId":i,"text":text})
+            }
+            getRelationByCheckType(_links,'flow');
+            setInterval(function () {
+                for(var i =1; i<6; i++){
+                    var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
+                    _links.push({"fromId":0,"toId":i,"text":text})
+                }
+                getRelationByCheckType(_links,'flow');
+            },2000)
+        }else{
+            clearAllLinkInfo();
+        }
+    })
+    $("#_service").unbind("click").click(function () {
+
+    })
+}
+
+function getRelationByCheckType(_links,type) {
+    $.each(_links,function (i,_link) {
+        switch (type){
+            case "link":
+                showRelation(_link);
+                break;
+            case "flow":
+                showFRelation(_link);
+                break;
+        }
+
+    })
+}
+function clearAllLinkInfo() {
+    //TODO
+}
+function showRelation(data) {
+   /* var fromNode = GW._branch._b[data.fromId],
+        toNode = GW._branch._b[data.toId];*/
+    var currentNode = GW._branch.ls[data.fromId+"-"+data.toId];
+    currentNode.font = 14;
+    currentNode.text = data.text;
+    currentNode.fontColor = "0,0,0";
+}
+function showFRelation(data) {
+    var fromNode = GW._branch._b[data.fromId],
+        toNode = GW._branch._b[data.toId];
+    showFlow(fromNode,toNode);
+}
+
+function showFlow(fromNode,toNode) {
+    var ww = new JTopo.PieChartNode();
+    ww.shadow = false;
+    ww.radius = 25;
+    ww.font = 10;
+    ww.fontColor = "0,0,0";
+    ww.colors = ["#3666B0","#2CA8E0","#d1d1d1"];
+    ww.datas = [0.3, 0.3, 0.4];
+    ww.titles = ['A', 'B', 'C'];
+    ww.setLocation((fromNode.x+toNode.x)/2+60, (fromNode.y+toNode.y)/2-25, 25, 25);
+    GW.scene.add(ww);
 }
 
 
