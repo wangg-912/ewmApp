@@ -24,7 +24,7 @@
         /*background:#5F768B; */
         
         #TopoToolBar ul {
-            repeat-x:left top;
+            repeat-x: left top;
             padding: 1px 1px;
         }
         
@@ -41,13 +41,13 @@
         }
         
         #TopoToolBar a:hover {
-            no-repeat:left top;
+            no-repeat: left top;
             float: left;
             display: block;
         }
         
         #TopoToolBar a:active {
-            no-repeat:left top;
+            no-repeat: left top;
             float: left;
             display: block;
         }
@@ -239,7 +239,8 @@
                 var text = $(this).text();
 
                 if (text == '删除该节点') {
-                    GW.scene.remove(currentNode);
+
+                    GW.scene.remove(GW.scene.selectedElements[0]);
                     currentNode = null;
                 }
                 /*if(text == '撤销上一次操作'){
@@ -321,7 +322,7 @@
                 </ul>
             </div>
         </div>
-        <div  id="checkbox_container" style="display: block; width: 226px; float: right;margin-right: 40px;">
+        <div id="checkbox_container" style="display: block; width: 226px; float: right;margin-right: 40px;">
             <label for="_link"><input type="checkbox" name="modal" id="_link">链路监控</label>
             <label for="_flow"><input type="checkbox" name="modal" id="_flow">流量监控</label>
             <label for="_service"><input type="checkbox" name="modal" id="_service">服务监控</label>
@@ -459,7 +460,7 @@
                 });
 
                 //4.添加临时节点
-               // console.log($(drag.old_elm).parent());
+                // console.log($(drag.old_elm).parent());
                 //console.log(drag.tmp_elm);
                 tmp = $(drag.old_elm).parent().append(drag.tmp_elm);
                 //console.log(tmp);
@@ -563,13 +564,15 @@
     </script>
 
     <script type="text/javascript">
+        document.oncontextmenu = new Function("event.returnValue=false;");
+
         window.onload = function() {
             var divTopoTool = document.getElementById('tools');
             //debugger;
             LoadTopoTools(divTopoTool);
         };
         //新建拓扑
-        $("#createTopo").unbind("click").click(function(){
+        $("#createTopo").unbind("click").click(function() {
             Hui_admin_tab(this);
         });
     </script>

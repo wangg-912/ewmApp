@@ -7,33 +7,32 @@ function NodePostion(X, Y) {
  * 创建hover事件
  * @param d
  */
-function topoNodeToolTipHandler(d,data,type) {
+function topoNodeToolTipHandler(d, data, type) {
     console.log(data);
     var e = canvas.getBoundingClientRect();
     var a = Math.floor(d.clientX - e.left * (canvas.width / e.width) + canvas.offsetLeft + 16);
     var b = Math.floor(d.clientY - e.top * (canvas.height / e.height) + canvas.offsetTop + 16);
-    if (type == null) {
-    } else {
-        switch (type){
+    if (type == null) {} else {
+        switch (type) {
             case "branch":
                 //PrimeKey: 1, Name: "成都分支"
-                    $("#toolTip").html("<li>分支ID:" + data.PrimeKey + "</li><li>分支名称:" + data.Name + "</li>");
+                $("#toolTip").html("<li>分支ID:" + data.PrimeKey + "</li><li>分支名称:" + data.Name + "</li>");
                 break;
             case "edge":
-                    $("#toolTip").html("<li>出口设备:" + data.Name + "</li><li>设备类型:" + data.Type + "</li>");
+                $("#toolTip").html("<li>出口设备:" + data.Name + "</li><li>设备类型:" + data.Type + "</li>");
                 break;
             case "device":
-                    $("#toolTip").html("<li>设备类型:" + data + "</li>");
+                $("#toolTip").html("<li>设备类型:" + data + "</li>");
                 break;
             case "xx":
 
                 break;
             default:
-                    $("#toolTip").html(" ");
+                $("#toolTip").html(" ");
                 break
         }
     }
-    $("#toolTip").css({top: b, left: a}).show()
+    $("#toolTip").css({ top: b, left: a }).show()
 }
 /**
  * 移除事件对象，防止事件污染
@@ -51,15 +50,15 @@ function calcStringPixelsCount(str, strFontSize) {
 
     // JS 创建HTML元素：span
     var elementPixelsLengthRuler = document.createElement("span");
-    elementPixelsLengthRuler.style.fontSize = strFontSize;  // 设置span的fontsize
-    elementPixelsLengthRuler.style.visibility = "hidden";  // 设置span不可见
+    elementPixelsLengthRuler.style.fontSize = strFontSize; // 设置span的fontsize
+    elementPixelsLengthRuler.style.visibility = "hidden"; // 设置span不可见
     elementPixelsLengthRuler.style.display = "inline-block";
-    elementPixelsLengthRuler.style.wordBreak = "break-all !important";  // 打断单词
+    elementPixelsLengthRuler.style.wordBreak = "break-all !important"; // 打断单词
 
     // 添加span
     document.body.appendChild(elementPixelsLengthRuler);
 
-    for (var i =0; i < stringCharsCount; i++) {
+    for (var i = 0; i < stringCharsCount; i++) {
         // 判断字符是否为空格，如果是用&nbsp;替代，原因如下：
         // 1）span计算单个空格字符（ ），其像素长度为0
         // 2）空格字符在字符串的开头或者结果，计算时会忽略字符串
@@ -83,28 +82,28 @@ function calcStringPixelsCount(str, strFontSize) {
  * @param text   节点名称
  * @constructor
  */
-function GW_TextNode(Parent,Scene, Pos, text) {
+function GW_TextNode(Parent, Scene, Pos, text) {
     /* 对象属性 */
-    this.objId;    //Private,JTopo.TextNode对象
+    this.objId; //Private,JTopo.TextNode对象
     var tmpLeft = Pos.x;
     var tmpTop = Pos.y;
     /*this.Font = "Microsoft YaHei";
     this.FontSize = "32px";
     this.FontStyle = "bold";*/
-    this.FontColor= '0,0,0';
+    this.FontColor = '0,0,0';
     this.ParentNode = Parent;
     var myThis = this;
 
-    this.TextNode = function () {
+    this.TextNode = function() {
         var textNode = new JTopo.TextNode(text);
-        textNode.font = '16px 微软雅黑';   //jTopo 一个bug,必须按照这个顺序
+        textNode.font = '16px 微软雅黑'; //jTopo 一个bug,必须按照这个顺序
         textNode.fontColor = this.FontColor;
 
         textNode.setSize(12, 12);
         textNode.setLocation(Pos.x, Pos.y);
 
         var textfield = $("#textfield");
-        textNode.dbclick(function (event) {
+        textNode.dbclick(function(event) {
 
             if (event.target == null) return;
             var e = event.target;
@@ -119,30 +118,30 @@ function GW_TextNode(Parent,Scene, Pos, text) {
             textfield[0].JTopoNode = e;
         });
 
-        textfield.blur(function () {
+        textfield.blur(function() {
             textfield[0].JTopoNode.text = textfield.hide().val();
         });
         this.objId = textNode;
 
-        this.objId.addEventListener("mousedrag",this.Drag);
+        this.objId.addEventListener("mousedrag", this.Drag);
 
         Scene.TextNodeAdd(textNode);
 
     }
 
-    this.Drag = function (event) {
+    this.Drag = function(event) {
         //console.log(event);
         myThis.objId.setLocation(event.x, event.y);
-        myThis.ParentNode.SetTextPos(event.x,event.y);
-        tmpLeft = event.x ; //- 20;
-        tmpTop = event.y;// + 55;
+        myThis.ParentNode.SetTextPos(event.x, event.y);
+        tmpLeft = event.x; //- 20;
+        tmpTop = event.y; // + 55;
     }
 
-    this.setLocation = function(x,y){
-        this.objId.setLocation(x,y);
+    this.setLocation = function(x, y) {
+        this.objId.setLocation(x, y);
     }
 
-    this.SetFontSize = function(fontSize){
+    this.SetFontSize = function(fontSize) {
         this.FontSize = fontSize;
         this.objId.font = this.FontStyle + this.FontSize + this.Font;
     }
@@ -163,22 +162,23 @@ function GW_TextNode(Parent,Scene, Pos, text) {
  */
 function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
     /*  Node对象属性  */
-    this.state = null;     //节点状态
-    this.objId;            // Private,JTopo.Node节点对象ID
-    this.objTxtId;        //GW_TextNode对象ID,用于支持名称字体、颜色、位置等设置
+    this.state = null; //节点状态
+    this.objId; // Private,JTopo.Node节点对象ID
+    this.objTxtId; //GW_TextNode对象ID,用于支持名称字体、颜色、位置等设置
     this.NodePos = Pos;
-    this.Size = new NodePostion(48,48);
-    var textWidth = calcStringPixelsCount(Name,"16px");
-    this.TextOffsetPos =  new NodePostion(-((textWidth - this.Size.x+1)/2) , 40);  //默认正下方，居中
+    this.Size = new NodePostion(48, 48);
+    var textWidth = calcStringPixelsCount(Name, "16px");
+    this.TextOffsetPos = new NodePostion(-((textWidth - this.Size.x + 1) / 2), 40); //默认正下方，居中
 
-    this.Name = Name;     //拓扑节点名称,GW_TextNode
-    this.PrimeKey = PrimeKey;        //节点对象数据库存储键值，唯一标记
-    this.Type = Type;     //domain、branch、detail
+    this.Name = Name; //拓扑节点名称,GW_TextNode
+    this.PrimeKey = PrimeKey; //节点对象数据库存储键值，唯一标记
+    this.Type = Type; //domain、branch、detail
     this.image = nodeImage;
     this.Scene = Scene;
     var myThis = this;
 
-    var disX=0,disY=0;   //记录鼠标点击坐标
+    var disX = 0,
+        disY = 0; //记录鼠标点击坐标
 
     /* Node对象行为 */
     //   this.Node()
@@ -190,95 +190,89 @@ function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
 
     // 构造函数
 
-    this.Node = function () {
+    this.Node = function() {
         var node = new JTopo.Node();
         var bkImg = null;
         node.setLocation(Pos.x, Pos.y);
-         this.objId = node;
+        this.objId = node;
 
-        if(nodeImage != "hide")
+        if (nodeImage != "hide")
             this.SetImage(nodeImage);
         else
-            this.SetSize(1, 1);//隐藏节点，用于连线的汇聚
+            this.SetSize(1, 1); //隐藏节点，用于连线的汇聚
 
 
         Scene.NodeAdd(this);
         //创建对应的NodeName节点
-        var textPos = new NodePostion(Pos.x +this.TextOffsetPos.x , Pos.y + this.TextOffsetPos.y);
-        var txtNode = new GW_TextNode(this,Scene, textPos, Name);
+        var textPos = new NodePostion(Pos.x + this.TextOffsetPos.x, Pos.y + this.TextOffsetPos.y);
+        var txtNode = new GW_TextNode(this, Scene, textPos, Name);
         this.objTxtId = txtNode;
 
 
         //Name = NodeText;
         this.objId.addEventListener("dbclick", this.dbClick);
         this.objId.addEventListener("mouseup", this.Click);
-        this.objId.addEventListener("mousedown",this.MouseDown);
-        this.objId.addEventListener("mousedrag",this.Drag);
+        this.objId.addEventListener("mousedown", this.MouseDown);
+        this.objId.addEventListener("mousedrag", this.Drag);
         this.objId.addEventListener("mouseover", this.hoverHandler);
         this.objId.addEventListener("mouseout", this.mouseoutHandler);
     }
-    this.hoverHandler = function (event) {
-        topoNodeToolTipHandler(event,__node)
+    this.hoverHandler = function(event) {
+        topoNodeToolTipHandler(event, __node)
     };
     this.mouseoutHandler = function(event) {
         removeTopoTipHandler();
     }
 
-    this.MouseDown= function(event){
-            removeTopoTipHandler();
-            var e = event;
-            disX = e.clientX - myThis.NodePos.x;
-            disY = e.clientY- myThis.NodePos.y;
+    this.MouseDown = function(event) {
+        removeTopoTipHandler();
+        var e = event;
+        disX = e.clientX - myThis.NodePos.x;
+        disY = e.clientY - myThis.NodePos.y;
 
     }
 
-    this.Drag = function(event){
-       var e = event || window.event;
+    this.Drag = function(event) {
+        var e = event || window.event;
         // 横轴坐标
         var leftX = e.clientX - disX;
         // 纵轴坐标
-        var topY =e.clientY - disY;
+        var topY = e.clientY - disY;
 
-        if( leftX < 0 ){
+        if (leftX < 0) {
             leftX = 0;
         }
-        if( topY < 0 ){
+        if (topY < 0) {
             topY = 0;
         }
-        myThis.NodePos.x = e.x-disX;
-        myThis.NodePos.y = e.y-disY;
+        myThis.NodePos.x = e.x - disX;
+        myThis.NodePos.y = e.y - disY;
 
-        myThis.objId.setLocation(myThis.NodePos.x,myThis.NodePos.y);
-        myThis.objTxtId.setLocation(myThis.NodePos.x + myThis.TextOffsetPos.x,myThis.NodePos.y+myThis.TextOffsetPos.y);
+        myThis.objId.setLocation(myThis.NodePos.x, myThis.NodePos.y);
+        myThis.objTxtId.setLocation(myThis.NodePos.x + myThis.TextOffsetPos.x, myThis.NodePos.y + myThis.TextOffsetPos.y);
     }
 
-    this.SetTextPos = function(x,y){
-        this.TextOffsetPos.x =  x - this.NodePos.x;
-        this.TextOffsetPos.y =  y - this.NodePos.y;
-        myThis.objTxtId.setLocation(myThis.NodePos.x + myThis.TextOffsetPos.x,myThis.NodePos.y+myThis.TextOffsetPos.y);
+    this.SetTextPos = function(x, y) {
+        this.TextOffsetPos.x = x - this.NodePos.x;
+        this.TextOffsetPos.y = y - this.NodePos.y;
+        myThis.objTxtId.setLocation(myThis.NodePos.x + myThis.TextOffsetPos.x, myThis.NodePos.y + myThis.TextOffsetPos.y);
     }
 
-    this.AdjustSize = function()
-    {
+    this.AdjustSize = function() {
         //等比例缩放图片
         var imgWidth = this.image.width;
         var imgHeight = this.image.height;
 
-        var  dimW  = imgWidth / 48;
-        var  dimH =  imgHeight /48;
+        var dimW = imgWidth / 48;
+        var dimH = imgHeight / 48;
 
-        if(dimW >= dimH)
-        {
-            if(dimW > 1)
-            {
+        if (dimW >= dimH) {
+            if (dimW > 1) {
                 imgWidth = imgWidth / dimW;
                 imgHeight = imgHeight / dimW;
             }
-        }
-        else
-        {
-            if(dimH > 1)
-            {
+        } else {
+            if (dimH > 1) {
                 imgWidth = imgWidth / dimH;
                 imgHeight = imgHeight / dimH;
             }
@@ -287,8 +281,8 @@ function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
         this.SetSize(imgWidth, imgHeight);
     }
 
-    this.Click =function(event){
-        if(event.button == 2){// 右键
+    this.Click = function(event) {
+        if (event.button == 2) { // 右键
             // 当前位置弹出菜单（div）
             $("#contextmenu").css({
                 top: event.pageY,
@@ -296,54 +290,52 @@ function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
             }).show();
         }
     }
-    this.dbClick = function(event)
-    {
-        if(event.target == null) return false;
+    this.dbClick = function(event) {
+        if (event.target == null) return false;
 
         myThis.Scene.DbClick(myThis);
         //return true;
     }
 
-    this.SetState = function (State) {
+    this.SetState = function(State) {
         this.state = State;
         if (State == "hide") {
             this.objId.setSize(1, 1);
-        }
-        else if (State == "visible")
+        } else if (State == "visible")
             this.SetImage(this.image);
     }
 
     //需要返回JTopoNode
     this.getJTopoNode = function() {
-        return this.objId;
-    }
-    //获取基类对象
-    this.GetObjId = function () {
+            return this.objId;
+        }
+        //获取基类对象
+    this.GetObjId = function() {
         return this.objId;
     }
 
-    this.GW_Node = function () {
+    this.GW_Node = function() {
         return objId;
     }
 
-    this.SetSize = function (width, heigth) {
+    this.SetSize = function(width, heigth) {
         this.objId.setSize(width, heigth);
     }
 
-    this.SetImage = function (newImage) {
+    this.SetImage = function(newImage) {
         this.objId.setImage(newImage);
         this.image = newImage;
-       this.AdjustSize();
+        this.AdjustSize();
     }
 
-    this.SetFontSize = function(fontSize){
+    this.SetFontSize = function(fontSize) {
         this.objTxtId.SetFontSize(fontSize);
-        textWidth = calcStringPixelsCount(this.Name ,fontSize);
-        this.TextOffsetPos =  new NodePostion(-((textWidth - this.Size.x+1)/2) , 40);  //默认正下方，居中
-        myThis.objTxtId.setLocation(myThis.NodePos.x + myThis.TextOffsetPos.x,myThis.NodePos.y+myThis.TextOffsetPos.y);
+        textWidth = calcStringPixelsCount(this.Name, fontSize);
+        this.TextOffsetPos = new NodePostion(-((textWidth - this.Size.x + 1) / 2), 40); //默认正下方，居中
+        myThis.objTxtId.setLocation(myThis.NodePos.x + myThis.TextOffsetPos.x, myThis.NodePos.y + myThis.TextOffsetPos.y);
     }
 
-// 生成对象
+    // 生成对象
     this.Node();
 }
 
@@ -353,12 +345,12 @@ function GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, Type, __node) {
 //          Pos   -- 节点坐标
 //          Type  -- 节点类型,区分domain，当前选择只有domain
 //          Name  -- domain name
-function GW_DomainNode(Scene, Pos, nodeImage, Name,PrimeKey,Type) {
+function GW_DomainNode(Scene, Pos, nodeImage, Name, PrimeKey, Type) {
     /*  Node对象属性  */
-    this.state = null;     //节点状态
-    this.objId = null;            // GW_Node节点对象ID
-    this.Name = Name;     //拓扑节点名称
-    this.PrimeKey = PrimeKey;        //节点对象数据库存储键值，唯一标记
+    this.state = null; //节点状态
+    this.objId = null; // GW_Node节点对象ID
+    this.Name = Name; //拓扑节点名称
+    this.PrimeKey = PrimeKey; //节点对象数据库存储键值，唯一标记
     this.Type = Type;
     this.image = nodeImage;
 
@@ -369,8 +361,8 @@ function GW_DomainNode(Scene, Pos, nodeImage, Name,PrimeKey,Type) {
 
     // 构造函数
 
-    this.GW_DomainNode = function () {
-        var node = new GW_Node(Scene, Pos, nodeImage, Name,PrimeKey,this.Type);
+    this.GW_DomainNode = function() {
+        var node = new GW_Node(Scene, Pos, nodeImage, Name, PrimeKey, this.Type);
 
         node.SetSize(300, 200);
         this.objId = node;
@@ -379,16 +371,16 @@ function GW_DomainNode(Scene, Pos, nodeImage, Name,PrimeKey,Type) {
 
     //需要返回JTopoNode
     this.getJTopoNode = function() {
-        return this.objId.getJTopoNode();
-    }
-    //获取基类对象
-    this.GW_Node = function () {
+            return this.objId.getJTopoNode();
+        }
+        //获取基类对象
+    this.GW_Node = function() {
         return this.objId;
     }
 
-    this.SetImage = function (newImage) {
+    this.SetImage = function(newImage) {
         this.image = newImage;
-        return  this.objId.SetImage(newImage);
+        return this.objId.SetImage(newImage);
     }
 
     this.GW_DomainNode();
@@ -407,16 +399,16 @@ function GW_DomainNode(Scene, Pos, nodeImage, Name,PrimeKey,Type) {
  * @constructor
  */
 function GW_BranchNode(opts) {
-    this.state = null;     //节点状态
-    this.objId;// GW_Node节点对象ID
+    this.state = null; //节点状态
+    this.objId; // GW_Node节点对象ID
     this.childObjId = {};
     var _node = opts.node;
-    this.Name = _node["id"].Name;     //拓扑节点名称
-    this.PrimeKey = _node["id"].PrimeKey;        //节点对象数据库存储键值，唯一标记
+    this.Name = _node["id"].Name; //拓扑节点名称
+    this.PrimeKey = _node["id"].PrimeKey; //节点对象数据库存储键值，唯一标记
     this.Type = opts["node"].type;
     this.image = opts["nodeIcons"][opts.type].objId;
 
-    var Pos = new NodePostion(_node["location"]["x"],_node["location"]["y"]);
+    var Pos = new NodePostion(_node["location"]["x"], _node["location"]["y"]);
     /* Node对象行为 */
     //   this.Node()
     //   this.SetState(newState)      设置对象
@@ -424,19 +416,19 @@ function GW_BranchNode(opts) {
 
     // 构造函数
 
-    this.GW_BranchNode = function () {
-        var node = new GW_Node(opts.scene, Pos, this.image, this.Name,this.PrimeKey,this.Type,opts.node);
+    this.GW_BranchNode = function() {
+        var node = new GW_Node(opts.scene, Pos, this.image, this.Name, this.PrimeKey, this.Type, opts.node);
         node.SetSize(300, 200);
         node.SetFontSize("32");
         this.objId = node;
         var childDrive = _node.devType;
-        if(childDrive.length){
-            $.each(childDrive,function (i,drive) {
+        if (childDrive.length) {
+            $.each(childDrive, function(i, drive) {
                 var img__ = opts["nodeIcons"][drive].objId;
                 var childtopo = new GW_Node(opts.scene, {
-                    x:Pos.x+(30*(i+1)),
-                    y:Pos.y+(30*(i+1))
-                },  img__, drive,(drive+(i+1)),drive,opts.node);
+                    x: Pos.x + (30 * (i + 1)),
+                    y: Pos.y + (30 * (i + 1))
+                }, img__, drive, (drive + (i + 1)), drive, opts.node);
                 childtopo.SetSize(30, 30);
                 opts.scene.NodeAdd(childtopo)
 
@@ -447,16 +439,16 @@ function GW_BranchNode(opts) {
 
     //需要返回JTopoNode
     this.getJTopoNode = function() {
-        return this.objId.getJTopoNode();
-    }
-    //获取基类对象
-    this.GW_Node = function () {
+            return this.objId.getJTopoNode();
+        }
+        //获取基类对象
+    this.GW_Node = function() {
         return this.objId;
     }
 
-    this.SetImage = function (newImage) {
+    this.SetImage = function(newImage) {
         this.image = newImage;
-        return  this.objId.SetImage(newImage);
+        return this.objId.SetImage(newImage);
     }
 
 
@@ -499,32 +491,34 @@ function GW_BranchNode(opts) {
  * @param isShowTopoBar 是否显示工具栏
  */
 
-function loadTopo(params,successCallback,errorCallback){
-       $.ajax({
-           url: "/cmd",
-           type: "POST",
-           data: JSON.stringify(params),
-           contentType: "application/json; charset=utf-8",
-           dataType: "json",
-           success: function (data) {
-               //console.info(" --> ajaxJsonPost success: " + JSON.stringify(data, null, 2));
-               successCallback && successCallback(data);
-           },
-           failure: function (info) {
-               //console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
-              // _failure(data);
-               errorCallback && errorCallback(info)
-           }
-       })
+function loadTopo(params, successCallback, errorCallback) {
+    $.ajax({
+        url: "/cmd",
+        type: "POST",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) {
+            //console.info(" --> ajaxJsonPost success: " + JSON.stringify(data, null, 2));
+            successCallback && successCallback(data);
+        },
+        failure: function(info) {
+            //console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
+            // _failure(data);
+            errorCallback && errorCallback(info)
+        }
+    })
 }
+
 function successCall(data) {
-    if(data.length && data[0].success){
+    if (data.length && data[0].success) {
         loadBranchTopo(data[0].result);
         createLinkForMannul();
-    }else{
+    } else {
         alert("暂无数据！")
     }
 }
+
 function errorCall(info) {
     console.error(" --> ajaxJsonPost failure: " + JSON.stringify(info, null, 2));
 }
@@ -539,10 +533,11 @@ function errorCall(info) {
 /**
  * 注册GW命名空间
  */
-;(function () {
+;
+(function() {
     var root = this;
 
-    var GW = function (obj) {
+    var GW = function(obj) {
         if (obj instanceof GW) return obj;
         if (!(this instanceof GW)) return new GW(obj);
     };
@@ -580,18 +575,18 @@ function initTopo(canvasID, stage, scene) {
     /**
      * scene实例id 默认为"";
      */
-    GW.scene.id="";
+    GW.scene.id = "";
 
     /**
      * scene实例错误的Unicode字符串!"";
      */
-    GW.scene.parentId="";
+    GW.scene.parentId = "";
 
     /**
      * 鹰眼
      */
     GW.stage.eagleEye.visible = false;
-    GW.scene.translateY=20;
+    GW.scene.translateY = 20;
     /**
      * 背景图
      * */
@@ -603,11 +598,11 @@ function initTopo(canvasID, stage, scene) {
     GW.stage.add(GW.scene);
 
     GW._branch = {
-        "center":null,
-        "edge":[],
-        "_b":{},
-        "rs":{},
-        "ls":{}
+        "center": null,
+        "edge": [],
+        "_b": {},
+        "rs": {},
+        "ls": {}
     };
     return GW.scene;
 }
@@ -624,7 +619,7 @@ function setCanvasSize(opts) {
  * @param result
  */
 function loadBranchTopo(result) {
-    if(result.length){
+    if (result.length) {
         renderBranchTopo(result[0]);
     }
 }
@@ -636,8 +631,8 @@ function renderBranchTopo(data) {
     var _id = data.id,
         _links = data.links,
         _nodes = data.nodes;
-        GW.branchLinks = _links;
-    $.each(_nodes,function (i,node) {
+    GW.branchLinks = _links;
+    $.each(_nodes, function(i, node) {
         createBranch(node);
     });
     createEdgeDeviceLink();
@@ -648,7 +643,7 @@ function renderBranchTopo(data) {
  */
 function createBranch(obj) {
     createBackgroundNode(obj);
-    (obj.EdgeDevice&&!$.isEmptyObject(obj.EdgeDevice))?createEdgeDeviceNode(obj):null;
+    (obj.EdgeDevice && !$.isEmptyObject(obj.EdgeDevice)) ? createEdgeDeviceNode(obj): null;
     createAutoIconNode(obj);
 }
 /**
@@ -658,7 +653,7 @@ function createBranch(obj) {
  */
 function createBackgroundNode(obj) {
     var node = new JTopo.Node();
-    node.setBound((obj.location.x),(obj.location.y),300,200);
+    node.setBound((obj.location.x), (obj.location.y), 300, 200);
     node.zIndex = 1;
     node.setImage("/resource/branchCloud.png");
     //container.add(node);
@@ -672,21 +667,21 @@ function createBackgroundNode(obj) {
  */
 function createEdgeDeviceNode(obj) {
     var edgeNode = new JTopo.Node();
-    obj.id.PrimeKey == 0 ?edgeNode.setBound((obj.location.x)+150,(obj.location.y)+160,60,45):edgeNode.setBound((obj.location.x)+150,(obj.location.y),60,45);
+    obj.id.PrimeKey == 0 ? edgeNode.setBound((obj.location.x) + 150, (obj.location.y) + 160, 60, 45) : edgeNode.setBound((obj.location.x) + 150, (obj.location.y), 60, 45);
     edgeNode.zIndex = 2;
-    edgeNode.alpha =1;
+    edgeNode.alpha = 1;
     edgeNode.setImage(gw_IconImgArray[obj.EdgeDevice.Type].imgUrl);
     //(edgeNode);
-    edgeNode.addEventListener("mouseover",function (event) {
-        topoNodeToolTipHandler(event,obj.EdgeDevice,"edge");
+    edgeNode.addEventListener("mouseover", function(event) {
+        topoNodeToolTipHandler(event, obj.EdgeDevice, "edge");
     })
-    edgeNode.addEventListener("mouseout",function (event) {
-        removeTopoTipHandler();
-    })
-    //edgeNode.alarm = obj.alert;
+    edgeNode.addEventListener("mouseout", function(event) {
+            removeTopoTipHandler();
+        })
+        //edgeNode.alarm = obj.alert;
     GW._branch._b[(obj.id.PrimeKey)] = edgeNode;
     GW.scene.add(edgeNode);
-    obj.devType ? createBranchDriveIconNode(obj,edgeNode):null;
+    obj.devType ? createBranchDriveIconNode(obj, edgeNode) : null;
     //obj.id.PrimeKey == 0 ? GW._branch.center = edgeNode :GW._branch.edge.push(edgeNode);
 }
 /**
@@ -696,14 +691,14 @@ function createEdgeDeviceNode(obj) {
  */
 function createAutoIconNode(obj) {
     var iconNode = new JTopo.Node(obj.id.Name || "");
-    iconNode.setBound((obj.location.x+20),(obj.location.y+20),40,40);
+    iconNode.setBound((obj.location.x + 20), (obj.location.y + 20), 40, 40);
     iconNode.font = "bold 16px 微软雅黑";
     iconNode.fontColor = "30,144,255";
     iconNode.zIndex = 3;
-    iconNode.addEventListener("mouseover",function (event) {
-        topoNodeToolTipHandler(event,obj.id,"branch");
+    iconNode.addEventListener("mouseover", function(event) {
+        topoNodeToolTipHandler(event, obj.id, "branch");
     })
-    iconNode.addEventListener("mouseout",function (event) {
+    iconNode.addEventListener("mouseout", function(event) {
         removeTopoTipHandler();
     })
     obj.id.PrimeKey == 0 ? iconNode.setImage("/resource/logic/AreaDevice/louyu.png") : iconNode.setImage("/resource/logic/AreaDevice/wlzx.png");
@@ -716,22 +711,31 @@ function createAutoIconNode(obj) {
  * @param obj
  * @param ccNode
  */
-function createBranchDriveIconNode(obj,ccNode) {
-    $.each(obj.devType,function (i,drive) {
+function createBranchDriveIconNode(obj, ccNode) {
+    $.each(obj.devType, function(i, drive) {
         var iconUrl = gw_IconImgArray[drive].imgUrl;
         var driveNode = new JTopo.Node(drive);
-        driveNode.setBound((obj.location.x)+ (i+1)*50, ((obj.location.y)+ 100),30,30);
+        driveNode.setBound((obj.location.x) + (i + 1) * 50, ((obj.location.y) + 100), 30, 30);
         driveNode.font = "12px 微软雅黑";
         driveNode.fontColor = "0,0,0";
         driveNode.zIndex = 4;
         driveNode.setImage(iconUrl);
-        driveNode.addEventListener("mouseover",function (event) {
-            topoNodeToolTipHandler(event,drive,"device");
+        driveNode.addEventListener("mouseover", function(event) {
+            topoNodeToolTipHandler(event, drive, "device");
         })
-        driveNode.addEventListener("mouseout",function (event) {
+        driveNode.addEventListener("mouseout", function(event) {
             removeTopoTipHandler();
         })
-        createDevLink(ccNode,driveNode);
+        driveNode.addEventListener("mouseup", function(event) {
+            if (event.button == 2) { // 右键
+                // 当前位置弹出菜单（div）
+                $("#contextmenu").css({
+                    top: event.pageY,
+                    left: event.pageX
+                }).show();
+            }
+        });
+        createDevLink(ccNode, driveNode);
         //container.add(driveNode);
         GW.scene.add(driveNode);
     })
@@ -743,7 +747,7 @@ function createBranchDriveIconNode(obj,ccNode) {
  * @param cc 出口设备
  * @param ct 分之内当前设备
  */
-function createDevLink(cc,ct) {
+function createDevLink(cc, ct) {
     var link = new JTopo.Link(cc, ct);
     //container.add(link);
     link.strokeColor = "220,220,220";
@@ -753,24 +757,24 @@ function createDevLink(cc,ct) {
  * 创建出口设备连线逻辑
  */
 function createEdgeDeviceLink() {
-    $.each(GW.branchLinks,function (i,ls) {
-        var tep = ls.endpoint,
-            fromId = tep[0].refNode || "0",
-            toId = tep[1].refNode || "";
-        if(fromId && toId){
-            var flink = newFoldLink(GW._branch._b[fromId], GW._branch._b[toId],'','vertical');
-            GW._branch.ls[(tep[0].refNode+"-"+tep[1].refNode)] = flink;
-        }
-    })
-    /*if(GW._branch.center && GW._branch.edge.length){
-        var edges = GW._branch.edge;
-        $.each(edges,function (i,edge) {
-            if(edge){
-                newFoldLink(GW._branch.center, edge,'','vertical');
-                //newFoldLink(edge,GW._branch.center,'','vertical')
+    $.each(GW.branchLinks, function(i, ls) {
+            var tep = ls.endpoint,
+                fromId = tep[0].refNode || "0",
+                toId = tep[1].refNode || "";
+            if (fromId && toId) {
+                var flink = newFoldLink(GW._branch._b[fromId], GW._branch._b[toId], '', 'vertical');
+                GW._branch.ls[(tep[0].refNode + "-" + tep[1].refNode)] = flink;
             }
         })
-    }*/
+        /*if(GW._branch.center && GW._branch.edge.length){
+            var edges = GW._branch.edge;
+            $.each(edges,function (i,edge) {
+                if(edge){
+                    newFoldLink(GW._branch.center, edge,'','vertical');
+                    //newFoldLink(edge,GW._branch.center,'','vertical')
+                }
+            })
+        }*/
 }
 /**
  * 出口设备连线操作
@@ -781,7 +785,7 @@ function createEdgeDeviceLink() {
  * @param dashedPattern
  * @return {*|g}
  */
-function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern,styles){
+function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern, styles) {
     //var link = new JTopo.FlexionalLink(nodeA, nodeZ, text);
     var link = new JTopo.Link(nodeA, nodeZ, text);
     //var link = new JTopo.FoldLink(nodeA, nodeZ,text);
@@ -804,32 +808,46 @@ function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern,styles){
  * @param type 类型
  */
 
-function dragAddNode(pos,image,name,PrimeKey,type) {
-    var textWidth = calcStringPixelsCount(name,"12px");
-    var textOffsetPos =  {"x":-((textWidth - 45)/2) , "y":40};  //默认正下方，居中
+function dragAddNode(pos, image, name, PrimeKey, type) {
+    var textWidth = calcStringPixelsCount(name, "12px");
+    var textOffsetPos = { "x": -((textWidth - 45) / 2), "y": 40 }; //默认正下方，居中
     var node = new JTopo.Node();
     node.setImage(image.src);
-    node.setLocation(pos.x + textOffsetPos.x,pos.y+textOffsetPos.y);
-    switch (type){
+    node.setLocation(pos.x + textOffsetPos.x, pos.y + textOffsetPos.y);
+    switch (type) {
         case "edge": //出口设备
-            node.setSize(60,45);
+            node.setSize(60, 45);
+            registerContextMenu(node);
             break;
         case "terminal":
-            node.setSize(30,30);
+            node.setSize(30, 30);
+            registerContextMenu(node);
             break;
         case "dept":
-            node.setSize(40,40);
+            node.setSize(40, 40);
             break;
         case "branch":
-            node.setSize(300,200);
+            node.setSize(300, 200);
             break;
         default:
-            node.setSize(26,26);
+            node.setSize(26, 26);
             break;
     }
     //node.setSize(44,44);
     node.setLocation(pos.x, pos.y);
     GW.scene.add(node);
+}
+
+function registerContextMenu(node) {
+    node.addEventListener("mouseup", function(event) {
+        if (event.button == 2) { // 右键
+            // 当前位置弹出菜单（div）
+            $("#contextmenu").css({
+                top: event.pageY,
+                left: event.pageX
+            }).show();
+        }
+    });
 }
 /**
  * 启用连线编辑的逻辑
@@ -842,53 +860,53 @@ function createLinkForMannul() {
     tempNodeZ.setSize(1, 1);
 
     var link = new JTopo.Link(tempNodeA, tempNodeZ);
-    if(tmpPolyLineAllow == true)
+    if (tmpPolyLineAllow == true)
         link = new JTopo.FoldLink(tempNodeA, tempNodeZ);
-    link.lineWidth = 1;
+    link.lineWidth = 0.3;
 
     //节点连线
-    GW.scene.mouseup(function(e){
-        if((tmpLineAllow == false) && (tmpPolyLineAllow == false))
+    GW.scene.mouseup(function(e) {
+        if ((tmpLineAllow == false) && (tmpPolyLineAllow == false))
             return;
-        if(e.button == 2){
+        if (e.button == 2) {
             GW.scene.remove(link);
             beginNode = null;
             return;
         }
-        if(e.target != null && e.target instanceof JTopo.Node){
-            if(beginNode == null){
+        if (e.target != null && e.target instanceof JTopo.Node) {
+            if (beginNode == null) {
                 beginNode = e.target;
                 GW.scene.add(link);
                 tempNodeA.setLocation(e.x, e.y);
                 tempNodeZ.setLocation(e.x, e.y);
-            }else if(beginNode !== e.target){
+            } else if (beginNode !== e.target) {
                 var endNode = e.target;
-                if(tmpLineAllow == true)
+                if (tmpLineAllow == true)
                     var l = new JTopo.Link(beginNode, endNode);
-                if(tmpPolyLineAllow == true)
+                if (tmpPolyLineAllow == true)
                     var l = new JTopo.FoldLink(beginNode, endNode);
                 GW.scene.add(l);
                 beginNode = null;
                 GW.scene.remove(link);
-            }else{
+            } else {
                 beginNode = null;
             }
-        }else{
+        } else {
             GW.scene.remove(link);
             beginNode = null;
         }
     });
-    GW.scene.mousedown(function(e){
-        if((tmpLineAllow == false) && (tmpPolyLineAllow == false))
+    GW.scene.mousedown(function(e) {
+        if ((tmpLineAllow == false) && (tmpPolyLineAllow == false))
             return;
-        if(e.target == null || e.target === beginNode || e.target === link){
+        if (e.target == null || e.target === beginNode || e.target === link) {
             GW.scene.remove(link);
             beginNode = null;
         }
     });
 
-    GW.scene.mousemove(function(e){
-        if((tmpLineAllow == false) && (tmpPolyLineAllow == false))
+    GW.scene.mousemove(function(e) {
+        if ((tmpLineAllow == false) && (tmpPolyLineAllow == false))
             return;
         tempNodeZ.setLocation(e.x, e.y);
     });
@@ -897,54 +915,54 @@ function createLinkForMannul() {
  * 初始化拓扑链路，服务，流量的事件入口
  */
 function initCheckbox() {
-    $("#_link").unbind("click").click(function () {
+    $("#_link").unbind("click").click(function() {
         var flag = $(this)[0].checked;
-        if(flag){
+        if (flag) {
             var _links = [];
-            for(var i =1; i<6; i++){
-                var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
-                _links.push({"fromId":0,"toId":i,"text":text})
+            for (var i = 1; i < 6; i++) {
+                var text = (Math.random() * 10).toFixed(1) + "/ 14 Mbps";
+                _links.push({ "fromId": 0, "toId": i, "text": text })
             }
-            getRelationByCheckType(_links,"link");
-            setInterval(function () {
-                for(var i =1; i<6; i++){
-                    var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
-                    _links.push({"fromId":0,"toId":i,"text":text})
+            getRelationByCheckType(_links, "link");
+            setInterval(function() {
+                for (var i = 1; i < 6; i++) {
+                    var text = (Math.random() * 10).toFixed(1) + "/ 14 Mbps";
+                    _links.push({ "fromId": 0, "toId": i, "text": text })
                 }
-                getRelationByCheckType(_links,"link");
-            },2000)
-        }else{
+                getRelationByCheckType(_links, "link");
+            }, 2000)
+        } else {
             clearAllLinkInfo();
         }
     })
-    $("#_flow").unbind("click").click(function () {
+    $("#_flow").unbind("click").click(function() {
         var flag = $(this)[0].checked;
-        if(flag){
+        if (flag) {
             var _links = [];
-            for(var i =1; i<6; i++){
-                var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
-                _links.push({"fromId":0,"toId":i,"text":text})
+            for (var i = 1; i < 6; i++) {
+                var text = (Math.random() * 10).toFixed(1) + "/ 14 Mbps";
+                _links.push({ "fromId": 0, "toId": i, "text": text })
             }
-            getRelationByCheckType(_links,'flow');
-            setInterval(function () {
-                for(var i =1; i<6; i++){
-                    var text = (Math.random()*10).toFixed(1) +"/ 14 Mbps";
-                    _links.push({"fromId":0,"toId":i,"text":text})
+            getRelationByCheckType(_links, 'flow');
+            setInterval(function() {
+                for (var i = 1; i < 6; i++) {
+                    var text = (Math.random() * 10).toFixed(1) + "/ 14 Mbps";
+                    _links.push({ "fromId": 0, "toId": i, "text": text })
                 }
-                getRelationByCheckType(_links,'flow');
-            },2000)
-        }else{
+                getRelationByCheckType(_links, 'flow');
+            }, 2000)
+        } else {
             clearAllLinkInfo();
         }
     })
-    $("#_service").unbind("click").click(function () {
+    $("#_service").unbind("click").click(function() {
 
     })
 }
 
-function getRelationByCheckType(_links,type) {
-    $.each(_links,function (i,_link) {
-        switch (type){
+function getRelationByCheckType(_links, type) {
+    $.each(_links, function(i, _link) {
+        switch (type) {
             case "link":
                 showRelation(_link);
                 break;
@@ -955,33 +973,36 @@ function getRelationByCheckType(_links,type) {
 
     })
 }
+
 function clearAllLinkInfo() {
     //TODO
 }
+
 function showRelation(data) {
-   /* var fromNode = GW._branch._b[data.fromId],
-        toNode = GW._branch._b[data.toId];*/
-    var currentNode = GW._branch.ls[data.fromId+"-"+data.toId];
+    /* var fromNode = GW._branch._b[data.fromId],
+         toNode = GW._branch._b[data.toId];*/
+    var currentNode = GW._branch.ls[data.fromId + "-" + data.toId];
     currentNode.font = 14;
     currentNode.text = data.text;
     currentNode.fontColor = "0,0,0";
 }
+
 function showFRelation(data) {
     var fromNode = GW._branch._b[data.fromId],
         toNode = GW._branch._b[data.toId];
-    showFlow(fromNode,toNode);
+    showFlow(fromNode, toNode);
 }
 
-function showFlow(fromNode,toNode) {
+function showFlow(fromNode, toNode) {
     var ww = new JTopo.PieChartNode();
     ww.shadow = false;
     ww.radius = 25;
     ww.font = 10;
     ww.fontColor = "0,0,0";
-    ww.colors = ["#3666B0","#2CA8E0","#d1d1d1"];
+    ww.colors = ["#3666B0", "#2CA8E0", "#d1d1d1"];
     ww.datas = [0.3, 0.3, 0.4];
     ww.titles = ['A', 'B', 'C'];
-    ww.setLocation((fromNode.x+toNode.x)/2+60, (fromNode.y+toNode.y)/2-25, 25, 25);
+    ww.setLocation((fromNode.x + toNode.x) / 2 + 60, (fromNode.y + toNode.y) / 2 - 25, 25, 25);
     GW.scene.add(ww);
 }
 
@@ -1015,12 +1036,12 @@ function showFlow(fromNode,toNode) {
 
 function GW_Line(Scene, NodeA, NodeB, Type, Name, PrimeKey) {
     this.state = null;
-    this.type = Type;     //类型： 取值目前： "fiber"  "pair";
+    this.type = Type; //类型： 取值目前： "fiber"  "pair";
     this.name = Name;
     var objId = null;
     this.PrimeKey = PrimeKey;
 
-    this.Line = function () {
+    this.Line = function() {
         var link = new JTopo.Link(NodeA.getJTopoNode(), NodeB.getJTopoNode(), Name);
         //link.arrowsRadius = 15;
         link.lineWidth = 3; // 线宽
@@ -1047,16 +1068,16 @@ function GW_Line(Scene, NodeA, NodeB, Type, Name, PrimeKey) {
         Scene.LinkAdd(this);
 
     }
-    this.SetState = function (State) {
+    this.SetState = function(State) {
         this.state = State;
     }
 
-    this.getJTopoLink = function () {
+    this.getJTopoLink = function() {
         return objId;
     }
 
-    this.GetObjId = function () {
-        return  objId;
+    this.GetObjId = function() {
+        return objId;
     }
     this.Line();
 
@@ -1079,7 +1100,7 @@ function A_link_MultiB(Scene, NodeA, NodeB, Type, Name) {
 function newLine(Scene, NodeA, NodeB) {
     this.state = null;
 
-    this.newLine = function () {
+    this.newLine = function() {
 
 
         var link = new JTopo.FlexionalLink(NodeA.getNode(), NodeB.getNode());
@@ -1087,7 +1108,7 @@ function newLine(Scene, NodeA, NodeB) {
         link.lineWidth = 1;
         Scene.sceneObj.add(link);
     }
-    this.SetState = function (State) {
+    this.SetState = function(State) {
         this.state = State;
     }
     this.newLine();
@@ -1099,31 +1120,29 @@ function GW_stage(canvas) {
     this.dbClickHandle = null;
     this.SceneArray = {};
 
-    this.stage = function (canvas) {
+    this.stage = function(canvas) {
         objId = new JTopo.Stage(canvas);
     }
 
-    this.GetObjId = function () {
+    this.GetObjId = function() {
         return objId;
     }
 
 
-    this.AddSence = function(sence){
-        this.SceneArray[sence.PrimeKey]=sence;
+    this.AddSence = function(sence) {
+        this.SceneArray[sence.PrimeKey] = sence;
     }
 
     this.SaveImage = function() {
         var Image = objId.saveImageInfo();
         return Image;
     }
-    this.regDbClick = function(Handler)
-    {
+    this.regDbClick = function(Handler) {
         this.dbClickHandle = Handler;
     }
 
-    this.DbClick = function(scene,Node)
-    {//在Domain和Branch的Node节点上双击，进入下一层
-        this.dbClickHandle(this,scene,Node);
+    this.DbClick = function(scene, Node) { //在Domain和Branch的Node节点上双击，进入下一层
+        this.dbClickHandle(this, scene, Node);
     }
     this.stage(canvas);
 }
@@ -1136,28 +1155,27 @@ function GW_stage(canvas) {
  */
 function GW_Scene(stageIn, SceneName) {
     var ObjId = null;
-    this.PrimeKey = SceneName;  //“branch”、branch primeKey、domain PrimeKey
+    this.PrimeKey = SceneName; //“branch”、branch primeKey、domain PrimeKey
     this.stage = stageIn;
-    this.NodeArray = new Object();   // 根据节点PrimeKey从小到大排序
+    this.NodeArray = new Object(); // 根据节点PrimeKey从小到大排序
     this.LinkArray = new Object();
 
-    var myThis = this;  //保存GW_Scence对象
-    this.scene = function (stageIn) {
+    var myThis = this; //保存GW_Scence对象
+    this.scene = function(stageIn) {
         ObjId = new JTopo.Scene(stageIn.GetObjId());
         stageIn.AddSence(this);
     }
 
 
-    this.clearScene = function () {
+    this.clearScene = function() {
         ObjId.clear();
     }
 
-    this.DbClick = function(node)
-    {
-         myThis.stage.DbClick(myThis,node);
+    this.DbClick = function(node) {
+        myThis.stage.DbClick(myThis, node);
     }
 
-    this.NodeAdd = function (GW_Node) {
+    this.NodeAdd = function(GW_Node) {
         if (this.NodeArray[GW_Node.PrimeKey] == undefined) {
             this.NodeArray[GW_Node.PrimeKey] = GW_Node;
         }
@@ -1165,50 +1183,45 @@ function GW_Scene(stageIn, SceneName) {
     }
 
 
-    this.TextNodeAdd = function (GW_TextNode){
+    this.TextNodeAdd = function(GW_TextNode) {
         ObjId.add(GW_TextNode);
     }
 
-   this.LinkAdd = function (GW_Link) {
+    this.LinkAdd = function(GW_Link) {
         if (this.LinkArray[GW_Link.PrimeKey] == undefined) {
             this.LinkArray[GW_Link.PrimeKey] = GW_Link;
         }
         ObjId.add(GW_Link.getJTopoLink());
     }
-    this.NodeDel = function (GW_Node) {
+    this.NodeDel = function(GW_Node) {
         this.NodeArray[GW_Node.PrimeKey] = undefined;
     }
 
-    this.LinkDel = function (GW_Link) {
+    this.LinkDel = function(GW_Link) {
         this.LinkArray[GW_Link.PrimeKey] = undefined;
     }
 
-    this.SetState = function(newState)
-    {
-        if(newState == "visible")
-        {
+    this.SetState = function(newState) {
+        if (newState == "visible") {
             ObjId.visible = true;
             ObjId.show();
-        }
-        else if(newState == "invisible")
-        {
+        } else if (newState == "invisible") {
             ObjId.visible = false;
             ObjId.hide();
         }
     }
 
-    this.GetObjId = function () {
-        return  ObjId;
+    this.GetObjId = function() {
+        return ObjId;
     }
 
     this.SetBkGround = function(bkImg) {
         ObjId.background = bkImg;
     }
 
-    this.removeBkGround = function(){
+    this.removeBkGround = function() {
         ObjId.background = "";
     }
 
     this.scene(stageIn);
 }
-
