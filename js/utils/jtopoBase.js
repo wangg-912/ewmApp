@@ -775,14 +775,21 @@ function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern){
     GW.scene.add(flink);
     return flink;
 }
-
+/**
+ * 拖放停止时，在画布上添加节点
+ * @param pos 位置
+ * @param image 图片
+ * @param name 文本
+ * @param PrimeKey Key键
+ * @param type 类型
+ */
 
 function dragAddNode(pos,image,name,PrimeKey,type) {
-
     var textWidth = calcStringPixelsCount(name,"12px");
     var textOffsetPos =  {"x":-((textWidth - 45)/2) , "y":40};  //默认正下方，居中
     var node = new JTopo.Node();
     node.setImage(image.src);
+    node.setLocation(pos.x + textOffsetPos.x,pos.y+textOffsetPos.y);
     switch (type){
         case "edge": //出口设备
             node.setSize(60,45);
