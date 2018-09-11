@@ -602,8 +602,12 @@ function initTopo(canvasID, stage, scene) {
         "edge": [],
         "_b": {},
         "rs": {},
-        "ls": {}
+        "ls": {},
+        "fs": {}
     };
+    GW.linkTimer = null;
+    GW.pieTimer = null;
+    GW.serveTimer = null;
     return GW.scene;
 }
 /**
@@ -670,6 +674,10 @@ function createEdgeDeviceNode(obj) {
     obj.id.PrimeKey == 0 ? edgeNode.setBound((obj.location.x) + 150, (obj.location.y) + 160, 60, 45) : edgeNode.setBound((obj.location.x) + 150, (obj.location.y), 60, 45);
     edgeNode.zIndex = 2;
     edgeNode.alpha = 1;
+    //判断是否告警的操作；
+    if(obj.alert !== "none"){
+        edgeNode.alarm = obj.alert || "告警";
+    }
     edgeNode.setImage(gw_IconImgArray[obj.EdgeDevice.Type].imgUrl);
     //(edgeNode);
     edgeNode.addEventListener("mouseover", function(event) {
@@ -692,7 +700,7 @@ function createEdgeDeviceNode(obj) {
 function createAutoIconNode(obj) {
     var iconNode = new JTopo.Node(obj.id.Name || "");
     iconNode.setBound((obj.location.x + 20), (obj.location.y + 20), 40, 40);
-    iconNode.font = "bold 16px 微软雅黑";
+    iconNode.font = "bold 14px 微软雅黑";
     iconNode.fontColor = "30,144,255";
     iconNode.zIndex = 3;
     iconNode.addEventListener("mouseover", function(event) {
@@ -714,7 +722,7 @@ function createAutoIconNode(obj) {
 function createBranchDriveIconNode(obj, ccNode) {
     $.each(obj.devType, function(i, drive) {
         var iconUrl = gw_IconImgArray[drive].imgUrl;
-        var driveNode = new JTopo.Node(drive);
+        var driveNode = new JTopo.Node();
         driveNode.setBound((obj.location.x) + (i + 1) * 50, ((obj.location.y) + 100), 30, 30);
         driveNode.font = "12px 微软雅黑";
         driveNode.fontColor = "0,0,0";
@@ -750,7 +758,8 @@ function createBranchDriveIconNode(obj, ccNode) {
 function createDevLink(cc, ct) {
     var link = new JTopo.Link(cc, ct);
     //container.add(link);
-    link.strokeColor = "220,220,220";
+    link.strokeColor = "65,105,225";
+    link.lineWidth = 0.5;
     GW.scene.add(link);
 }
 /**
@@ -758,11 +767,12 @@ function createDevLink(cc, ct) {
  */
 function createEdgeDeviceLink() {
     $.each(GW.branchLinks, function(i, ls) {
-            var tep = ls.endpoint,
+            var alarm = ls.alert,
+                tep = ls.endpoint,
                 fromId = tep[0].refNode || "0",
                 toId = tep[1].refNode || "";
             if (fromId && toId) {
-                var flink = newFoldLink(GW._branch._b[fromId], GW._branch._b[toId], '', 'vertical');
+                var flink = alarm != "none"? newAlarmFoldLink(GW._branch._b[fromId], GW._branch._b[toId], '', 'vertical',2) :newFoldLink(GW._branch._b[fromId], GW._branch._b[toId], '', 'vertical');
                 GW._branch.ls[(tep[0].refNode + "-" + tep[1].refNode)] = flink;
             }
         })
@@ -785,16 +795,41 @@ function createEdgeDeviceLink() {
  * @param dashedPattern
  * @return {*|g}
  */
-function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern, styles) {
+function newFoldLink(nodeA, nodeZ, text, direction, dashedPattern) {
     //var link = new JTopo.FlexionalLink(nodeA, nodeZ, text);
     var link = new JTopo.Link(nodeA, nodeZ, text);
     //var link = new JTopo.FoldLink(nodeA, nodeZ,text);
-    link.arrowsRadius = 8;
-    link.lineWidth = 2; // 线宽
+   // link.arrowsRadius = 8;
+    link.lineWidth = 0.8; // 线宽
     link.offsetGap = 0;
     link.bundleGap = 20; // 线条之间的间隔
-    link.textOffsetY = 0; // 文本偏移量（向下15个像素）
-    link.strokeColor = JTopo.util.randomColor(); // 线条颜色随机
+    link.textOffsetY = -15; // 文本偏移量（向下15个像素）
+    //link.strokeColor = JTopo.util.randomColor(); // 线条颜色随机
+    link.strokeColor = "0,0,255";
+    link.dashedPattern = dashedPattern;
+    GW.scene.add(link);
+    return link;
+}
+/**
+ * 出口设备连线操作
+ * @param nodeA
+ * @param nodeZ
+ * @param text
+ * @param direction
+ * @param dashedPattern
+ * @return {*|g}
+ */
+function newAlarmFoldLink(nodeA, nodeZ, text, direction, dashedPattern) {
+    //var link = new JTopo.FlexionalLink(nodeA, nodeZ, text);
+    var link = new JTopo.Link(nodeA, nodeZ, text);
+    //var link = new JTopo.FoldLink(nodeA, nodeZ,text);
+    // link.arrowsRadius = 8;
+    link.lineWidth = 3; // 线宽
+    link.offsetGap = 0;
+    link.bundleGap = 20; // 线条之间的间隔
+    link.textOffsetY = -15; // 文本偏移量（向下15个像素）
+    //link.strokeColor = JTopo.util.randomColor(); // 线条颜色随机
+    link.strokeColor = "255,0,0";
     link.dashedPattern = dashedPattern;
     GW.scene.add(link);
     return link;
@@ -862,7 +897,7 @@ function createLinkForMannul() {
     var link = new JTopo.Link(tempNodeA, tempNodeZ);
     if (tmpPolyLineAllow == true)
         link = new JTopo.FoldLink(tempNodeA, tempNodeZ);
-    link.lineWidth = 0.3;
+    link.lineWidth = 0.8;
 
     //节点连线
     GW.scene.mouseup(function(e) {
@@ -914,6 +949,7 @@ function createLinkForMannul() {
 /**
  * 初始化拓扑链路，服务，流量的事件入口
  */
+
 function initCheckbox() {
     $("#_link").unbind("click").click(function() {
         var flag = $(this)[0].checked;
@@ -924,7 +960,7 @@ function initCheckbox() {
                 _links.push({ "fromId": 0, "toId": i, "text": text })
             }
             getRelationByCheckType(_links, "link");
-            setInterval(function() {
+            GW.linkTimer = setInterval(function() {
                 for (var i = 1; i < 6; i++) {
                     var text = (Math.random() * 10).toFixed(1) + "/ 14 Mbps";
                     _links.push({ "fromId": 0, "toId": i, "text": text })
@@ -944,7 +980,7 @@ function initCheckbox() {
                 _links.push({ "fromId": 0, "toId": i, "text": text })
             }
             getRelationByCheckType(_links, 'flow');
-            setInterval(function() {
+            GW.pieTimer = setInterval(function() {
                 for (var i = 1; i < 6; i++) {
                     var text = (Math.random() * 10).toFixed(1) + "/ 14 Mbps";
                     _links.push({ "fromId": 0, "toId": i, "text": text })
@@ -952,7 +988,7 @@ function initCheckbox() {
                 getRelationByCheckType(_links, 'flow');
             }, 2000)
         } else {
-            clearAllLinkInfo();
+            clearAllPieInfo();
         }
     })
     $("#_service").unbind("click").click(function() {
@@ -975,12 +1011,19 @@ function getRelationByCheckType(_links, type) {
 }
 
 function clearAllLinkInfo() {
-    //TODO
+    clearInterval( GW.linkTimer);
+    $.each(GW._branch.ls,function (i,ls) {
+        ls.text = "";
+    })
+}
+function clearAllPieInfo() {
+    clearInterval( GW.pieTimer);
+    $.each(GW._branch.fs,function (i,fs) {
+        GW.scene.remove(fs);
+    })
 }
 
 function showRelation(data) {
-    /* var fromNode = GW._branch._b[data.fromId],
-         toNode = GW._branch._b[data.toId];*/
     var currentNode = GW._branch.ls[data.fromId + "-" + data.toId];
     currentNode.font = 14;
     currentNode.text = data.text;
@@ -990,20 +1033,25 @@ function showRelation(data) {
 function showFRelation(data) {
     var fromNode = GW._branch._b[data.fromId],
         toNode = GW._branch._b[data.toId];
-    showFlow(fromNode, toNode);
+    showFlow(fromNode, toNode,data.fromId,data.toId);
 }
 
-function showFlow(fromNode, toNode) {
-    var ww = new JTopo.PieChartNode();
-    ww.shadow = false;
-    ww.radius = 25;
-    ww.font = 10;
-    ww.fontColor = "0,0,0";
-    ww.colors = ["#3666B0", "#2CA8E0", "#d1d1d1"];
-    ww.datas = [0.3, 0.3, 0.4];
-    ww.titles = ['A', 'B', 'C'];
-    ww.setLocation((fromNode.x + toNode.x) / 2 + 60, (fromNode.y + toNode.y) / 2 - 25, 25, 25);
-    GW.scene.add(ww);
+function showFlow(fromNode, toNode, fid, tid) {
+    //debugger;
+    if(GW._branch.fs[fid+"-"+tid]){
+        var currentNode = GW._branch.fs[fid+"-"+tid];
+        currentNode.datas =  [Math.floor(Math.random()*10), 20];
+    }else{
+        var flow = new JTopo.BarChartNode();
+        flow.height = 20;
+        flow.width = 34;
+        flow.colors = ["#3666B0","#2CA8E0"];
+        flow.datas =  [2, 20];
+        flow.titles = ['上', '下'];
+        flow.setLocation((fromNode.x + toNode.x) / 2 + 60, (fromNode.y + toNode.y) / 2 - 25);
+        GW.scene.add(flow);
+        GW._branch.fs[fid+"-"+tid] = flow;
+    }
 }
 
 
@@ -1044,7 +1092,7 @@ function GW_Line(Scene, NodeA, NodeB, Type, Name, PrimeKey) {
     this.Line = function() {
         var link = new JTopo.Link(NodeA.getJTopoNode(), NodeB.getJTopoNode(), Name);
         //link.arrowsRadius = 15;
-        link.lineWidth = 3; // 线宽
+        link.lineWidth = 0.8; // 线宽
         link.dashedPattern = null; // 虚线
         link.bundleGap = 20; // 线条之间的间隔
         link.fontColor = "255,0,0";
