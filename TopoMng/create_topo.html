@@ -205,17 +205,17 @@
 <div class="displayArea">
     <table class="table table-border table-bordered table-bg" id="monitorHostT">
         <thead>
-            <tr>
-                <th scope="col" colspan="9" style="font-size: 18px;">监控主机</th>
-            </tr>
-            <tr class="text-c">
-                <th width="40">主机名称</th>
-                <th width="40">主机类型</th>
-                <th width="90">主机IP</th>
-                <th width="90">主机MAC</th>
-                <th width="150">所属网络</th>
-                <th width="200">备注</th>
-            </tr>
+        <tr>
+            <th scope="col" colspan="9" style="font-size: 18px;">监控主机</th>
+        </tr>
+        <tr class="text-c">
+            <th width="40">主机名称</th>
+            <th width="40">主机类型</th>
+            <th width="90">主机IP</th>
+            <th width="90">主机MAC</th>
+            <th width="150">所属网络</th>
+            <th width="200">备注</th>
+        </tr>
         </thead>
         <tbody>
         <tr class="text-c">
@@ -227,7 +227,7 @@
             <td>机器正常运行中</td>
         </tr>
         </tbody>
-     </table>
+    </table>
     <table class="table table-border table-bordered table-bg" id="monitorNetDevT" style="margin-top: 10px;">
         <thead>
         <tr>
@@ -313,9 +313,9 @@
     </table>
     <table class="table table-border table-bordered table-bg" id="monitorFlow" style="margin-top: 10px;">
         <thead>
-            <tr>
-                <th scope="col" colspan="9" style="font-size: 18px;">监控流量</th>
-            </tr>
+        <tr>
+            <th scope="col" colspan="9" style="font-size: 18px;">监控流量</th>
+        </tr>
         </thead>
         <tbody >
         </tbody>
@@ -354,6 +354,35 @@
 
 <!--新增拓扑 业务代码-->
 <script>
+    /********************** 模拟数据 start*********************/
+    var zNodes_topo = [
+        {id: 1, pId: 0, name: "深圳总部",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
+        {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
+        {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
+        {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+        {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+        {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+        {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
+
+    ];
+    var zNodes_att = [
+        {id: 1, pId: 0, name: "深圳总部(关注视角)",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
+        {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
+        {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
+        {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+        {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+        {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
+        {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
+    ];
+
+    var tableData = [
+        {one:"张三",two:"PC",t:"192.168.2.11",four:"aa:00:11:ff",five:"成都分支",six:"正常运行中",seven:"80%",eight:"测试数据"},
+        {one:"张三",two:"PC",t:"192.168.2.11",four:"aa:00:11:ff",five:"成都分支",six:"正常运行中",seven:"80%",eight:"测试数据"}
+    ];
+
+
+    /********************** 模拟数据 end*********************/
+
     $(function(){
         topoTreeInit();
         eventInit();
@@ -375,17 +404,8 @@
                 onDblClick:onDblClick
             }
         };
-        var zNodes = [
-            {id: 1, pId: 0, name: "深圳总部",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
-            {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
-            {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
-            {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-            {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-            {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-            {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
 
-        ];
-        $.fn.zTree.init($("#topoViewTree"), setting, zNodes);
+        $.fn.zTree.init($("#topoViewTree"), setting, zNodes_topo);
     }
     //初始化关注树
     function atTreeInit() {
@@ -404,17 +424,8 @@
                 onDblClick:onDblClick
             }
         };
-        var zNodes = [
-            {id: 1, pId: 0, name: "深圳总部(关注视角)",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
-            {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
-            {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
-            {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-            {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-            {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-            {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
 
-        ];
-        $.fn.zTree.init($("#attentionViewTree"), setting, zNodes);
+        $.fn.zTree.init($("#attentionViewTree"), setting, zNodes_att);
     }
     // 为高亮和不高亮的节点设置样式
     function getFontCss(treeId, treeNode) {
@@ -434,15 +445,15 @@
     //视图切换事件
     function viewChangeEvent() {
         $("[name='view']").change(function(){
-           if($(this).val() === "topoVC"){
-               $("#attentionViewTree").hide();
-               $("#topoViewTree").show();
-               topoTreeInit();
-           }else{
-               $("#topoViewTree").hide();
-               $("#attentionViewTree").show();
+            if($(this).val() === "topoVC"){
+                $("#attentionViewTree").hide();
+                $("#topoViewTree").show();
+                topoTreeInit();
+            }else{
+                $("#topoViewTree").hide();
+                $("#attentionViewTree").show();
                 atTreeInit();
-           }
+            }
         });
     }
     //搜索树事件
@@ -460,7 +471,6 @@
                 node.highlight = false;
                 return searchVal && (node.name.indexOf(searchVal)>-1 || node.mac.indexOf(searchVal)>-1);
             });
-            console.log(highLightNodes)
             updateNodes(highLightNodes,true,treeObj);
         }
         //更新节点
@@ -476,12 +486,36 @@
 
     /***************************** 监控页面信息(右部分) ****************************/
     function nodeClick(event, treeId, treeNode){
-
+        var html = "",_html8 = "";
+        for(var i=0,l=tableData.length;i<l;i++){
+            html+= '<tr class="text-c">' +
+                    '<td>'+tableData[i].one+'</td>' +
+                    '<td>'+tableData[i].two+'</td>' +
+                    '<td>'+tableData[i].t+'</td>' +
+                    '<td>'+tableData[i].four+'</td>' +
+                    '<td>'+tableData[i].five+'</td>' +
+                    '<td>'+tableData[i].six+'</td>' +
+                    '</tr>';
+        }
+        for(var j=0,m=tableData.length;j<m;j++){
+            _html8+= '<tr class="text-c">' +
+                    '<td>'+tableData[j].one+'</td>' +
+                    '<td>'+tableData[j].two+'</td>' +
+                    '<td>'+tableData[j].t+'</td>' +
+                    '<td>'+tableData[j].four+'</td>' +
+                    '<td>'+tableData[j].five+'</td>' +
+                    '<td>'+tableData[j].six+'</td>' +
+                    '<td>'+tableData[j].seven+'</td>' +
+                    '<td>'+tableData[j].eight+'</td>' +
+                    '</tr>';
+        }
+        $("#monitorHostT,#monitorNetDevT").find("tbody").html(html);
+        $("#monitorLinkT,#monitorServer").find("tbody").html(_html8);
     }
     //创建拓扑监控
     function createTopoMonEvent() {
         $("#createTopoMon").unbind("click").click(function(){
-           //todo
+            //todo
         });
     }
 </script>
