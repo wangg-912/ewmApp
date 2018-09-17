@@ -11,8 +11,8 @@
     .displayArea {
         display: inline-block;
         width: 79.6%;
-        height: 100%;
-    / / background : #93a1a1;
+       /* //height: 100%;
+    / / background : #93a1a1;*/
         font-size: 14px;
         position: relative;
         vertical-align: top;
@@ -191,7 +191,7 @@
     <div class="radio"><input type="radio" name="view" value="topoVC" checked="checked" id="topoVC"/> <label for="topoVC">拓扑视角</label></div>
     <div class="radio"><input type="radio" name="view" value="atVC" id="atVC"/> <label for="atVC">关注视角</label></div>
     <div class="search">
-        <input type="text" name="" id="hostName" placeholder=" 主机/服务查询" style="width:180px" class="input-text">
+        <input type="text" name="" id="hostName" placeholder=" 主机/服务查询" style="width:180px" class="input-text" onkeydown="treeSearchKeyDown(event)">
         <button name="" id="treeSearch" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i>
             查询
         </button>
@@ -218,14 +218,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-c">
-            <td>张三</td>
-            <td>PC</td>
-            <td>192.168.2.11</td>
-            <td>aa:00:aa:cc</td>
-            <td>成都分支</td>
-            <td>机器正常运行中</td>
-        </tr>
         </tbody>
     </table>
     <table class="table table-border table-bordered table-bg" id="monitorNetDevT" style="margin-top: 10px;">
@@ -243,14 +235,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-c">
-            <td>张三</td>
-            <td>PC</td>
-            <td>192.168.2.11</td>
-            <td>aa:00:aa:cc</td>
-            <td>成都分支</td>
-            <td>机器正常运行中</td>
-        </tr>
         </tbody>
     </table>
     <table class="table table-border table-bordered table-bg" id="monitorLinkT" style="margin-top: 10px;">
@@ -270,16 +254,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-c">
-            <td>张三</td>
-            <td>PC</td>
-            <td>192.168.2.11</td>
-            <td>aa:00:aa:cc</td>
-            <td>成都分支</td>
-            <td>机器正常运行中</td>
-            <td>机器正常运行中</td>
-            <td>机器正常运行中</td>
-        </tr>
         </tbody>
     </table>
     <table class="table table-border table-bordered table-bg" id="monitorServer" style="margin-top: 10px;">
@@ -299,16 +273,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-c">
-            <td>张三</td>
-            <td>PC</td>
-            <td>192.168.2.11</td>
-            <td>aa:00:aa:cc</td>
-            <td>成都分支</td>
-            <td>机器正常运行中</td>
-            <td>机器正常运行中</td>
-            <td>机器正常运行中</td>
-        </tr>
         </tbody>
     </table>
     <table class="table table-border table-bordered table-bg" id="monitorFlow" style="margin-top: 10px;">
@@ -344,48 +308,12 @@
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
-<!--<script type="text/javascript" src="LeftTree.js"></script>
-<script type="text/javascript" src="slidebar.js"></script>-->
-
-<!--<script type="text/javascript" src="../lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
-<script type="text/javascript" src="../lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
-<script type="text/javascript" src="TrafficChart.js"></script>
-<script type="text/javascript" src="RealMon.js"></script>-->
 
 <!--新增拓扑 业务代码-->
 <script>
-    /********************** 模拟数据 start*********************/
-    var zNodes_topo = [
-        {id: 1, pId: 0, name: "深圳总部",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
-        {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
-        {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
-        {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-        {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-        {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-        {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
-
-    ];
-    var zNodes_att = [
-        {id: 1, pId: 0, name: "深圳总部(关注视角)",mac:"00:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-home test"},
-        {id: 11, pId: 1, name: "企业入口网关",mac:"01:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-news test"},
-        {id: 12, pId: 1, name: "核心交换机",mac:"01:02", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-music test"},
-        {id: 121, pId: 12, name: "研发部",mac:"02:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-        {id: 1211, pId: 121, name: "网络服务",mac:"03:01", open: true,iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-        {id: 12111, pId: 1211, name: "rtx服务",mac:"04:01",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"},
-        {id: 12112, pId: 1211, name: "svn服务",mac:"04:02",iconSkin:"icon Hui-iconfont Hui-iconfont-dangan test"}
-    ];
-
-    var tableData = [
-        {one:"张三",two:"PC",t:"192.168.2.11",four:"aa:00:11:ff",five:"成都分支",six:"正常运行中",seven:"80%",eight:"测试数据"},
-        {one:"张三",two:"PC",t:"192.168.2.11",four:"aa:00:11:ff",five:"成都分支",six:"正常运行中",seven:"80%",eight:"测试数据"}
-    ];
-
-
-    /********************** 模拟数据 end*********************/
-
     $(function(){
-        topoTreeInit();
         eventInit();
+        topoTreeInit();
     });
     //初始化TOPO树
     function topoTreeInit() {
@@ -404,8 +332,35 @@
                 onDblClick:onDblClick
             }
         };
+        $.ajax({
+            url: "/cmd",
+            type: "POST",
+            data: JSON.stringify([{
+                resource: "Topo.View",
+                op: "loadTopoTreeView"
+            }]),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                if(data[0] && data[0].success){
+                    $.fn.zTree.init($("#topoViewTree"), setting, data[0].result);
+                    if(data[0].result[0] && data[0].result[0].id){
+                        var treeObj = $.fn.zTree.getZTreeObj("topoViewTree");
+                        var node = treeObj.getNodeByParam("id", data[0].result[0].id, null);
+                        treeObj.selectNode(node);
+                        treeObj.setting.callback.onClick.call(treeObj,{},data[0].result[0].id,node);
+                    }
 
-        $.fn.zTree.init($("#topoViewTree"), setting, zNodes_topo);
+                }else{
+                    $.Huimodalalert(data[0].errorMsg,2000)
+                }
+                //console.info(" --> ajaxJsonPost success: " + JSON.stringify(data, null, 2));
+            },
+            failure: function(info) {
+                console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
+                // _failure(data);
+            }
+        })
     }
     //初始化关注树
     function atTreeInit() {
@@ -424,8 +379,32 @@
                 onDblClick:onDblClick
             }
         };
-
-        $.fn.zTree.init($("#attentionViewTree"), setting, zNodes_att);
+        $.ajax({
+            url: "/cmd",
+            type: "POST",
+            data: JSON.stringify([{
+                resource: "Topo.View",
+                op: "loadMonitorTreeView"
+            }]),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                if(data[0] && data[0].success){
+                    $.fn.zTree.init($("#attentionViewTree"), setting, data[0].result);
+                    if(data[0].result[0] && data[0].result[0].id){
+                        var treeObj = $.fn.zTree.getZTreeObj("attentionViewTree");
+                        var node = treeObj.getNodeByParam("id", data[0].result[0].id, null);
+                        treeObj.selectNode(node);
+                        treeObj.setting.callback.onClick.call(treeObj,{},data[0].result[0].id,node);
+                    }
+                }else{
+                    $.Huimodalalert(data[0].errorMsg,2000)
+                }
+            },
+            failure: function(info) {
+                console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
+            }
+        })
     }
     // 为高亮和不高亮的节点设置样式
     function getFontCss(treeId, treeNode) {
@@ -433,8 +412,29 @@
     }
     //双击关注事件
     function onDblClick(event, treeId, treeNode) {
-        alert("关注成功!");
-        console.log("双击关注");
+        clearTimeout(window._nodeClickTimer);
+        $.ajax({
+            url: "/cmd",
+            type: "POST",
+            data: JSON.stringify([{
+                resource: "Topo.View",
+                op: "loadAttentEvent"
+            }]),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                if(data[0] && data[0].success){
+                    $.Huimodalalert("关注成功！",1000);
+                }else{
+                    $.Huimodalalert(data[0].errorMsg,2000);
+                }
+            },
+            failure: function(info) {
+                console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
+            }
+        });
+        e.preventDefault();
+        return false;
     }
     //事件初始化
     function eventInit() {
@@ -462,6 +462,11 @@
         $("#treeSearch").unbind("click").click(function () {
             $("#topoVC").prop("checked") ? searchTreeNode("topoViewTree") : searchTreeNode("attentionViewTree");
         });
+        window.treeSearchKeyDown = function (event) {
+            if(event.keyCode==0||event.keyCode==13){
+                $("#topoVC").prop("checked") ? searchTreeNode("topoViewTree") : searchTreeNode("attentionViewTree");
+            }
+        };
         //搜索树节点
         function searchTreeNode(treeId){
             var treeObj = $.fn.zTree.getZTreeObj(treeId);
@@ -486,32 +491,105 @@
 
     /***************************** 监控页面信息(右部分) ****************************/
     function nodeClick(event, treeId, treeNode){
-        var html = "",_html8 = "";
+        window._nodeClickTimer = setTimeout(function () {
+            $("#monitorHostT,monitorNetDevT,monitorLinkT,#monitorServer").find("tbody").html("");
+            $.ajax({
+                url: "/cmd",
+                type: "POST",
+                data: JSON.stringify([{
+                    resource: "Topo.View",
+                    op: "loadMonitorDataView"
+                }]),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    if(data[0] && data[0].success){
+                        renderTable(data[0].result);
+                    }else{
+                        $.Huimodalalert(data[0].errorMsg,2000);
+                    }
+                    //console.info(" --> ajaxJsonPost success: " + JSON.stringify(data, null, 2));
+                },
+                failure: function(info) {
+                    console.error(" --> ajaxJsonPost failure: " + JSON.stringify(data, null, 2));
+                    // _failure(data);
+                }
+            });
+        },700);
+    }
+    //渲染table
+    function renderTable(tableData){
+        renderMonitorHost(tableData.monitorHostData);
+        renderMonitorNetDev(tableData.monitorNetDevData);
+        renderMonitorLink(tableData.monitorLinkData);
+        renderMonitorServer(tableData.monitorServerData);
+    }
+    //渲染监控主机
+    function renderMonitorHost(tableData) {
+        var html = "";
         for(var i=0,l=tableData.length;i<l;i++){
             html+= '<tr class="text-c">' +
-                    '<td>'+tableData[i].one+'</td>' +
-                    '<td>'+tableData[i].two+'</td>' +
-                    '<td>'+tableData[i].t+'</td>' +
-                    '<td>'+tableData[i].four+'</td>' +
-                    '<td>'+tableData[i].five+'</td>' +
-                    '<td>'+tableData[i].six+'</td>' +
-                    '</tr>';
+                '<td>'+tableData[i].one+'</td>' +
+                '<td>'+tableData[i].two+'</td>' +
+                '<td>'+tableData[i].t+'</td>' +
+                '<td>'+tableData[i].four+'</td>' +
+                '<td>'+tableData[i].five+'</td>' +
+                '<td>'+tableData[i].six+'</td>' +
+                '</tr>';
         }
-        for(var j=0,m=tableData.length;j<m;j++){
-            _html8+= '<tr class="text-c">' +
-                    '<td>'+tableData[j].one+'</td>' +
-                    '<td>'+tableData[j].two+'</td>' +
-                    '<td>'+tableData[j].t+'</td>' +
-                    '<td>'+tableData[j].four+'</td>' +
-                    '<td>'+tableData[j].five+'</td>' +
-                    '<td>'+tableData[j].six+'</td>' +
-                    '<td>'+tableData[j].seven+'</td>' +
-                    '<td>'+tableData[j].eight+'</td>' +
-                    '</tr>';
-        }
-        $("#monitorHostT,#monitorNetDevT").find("tbody").html(html);
-        $("#monitorLinkT,#monitorServer").find("tbody").html(_html8);
+        $("#monitorHostT").find("tbody").html(html);
+
     }
+    //渲染监控设备
+    function renderMonitorNetDev(tableData) {
+        var html = "";
+        for(var i=0,l=tableData.length;i<l;i++){
+            html+= '<tr class="text-c">' +
+                '<td>'+tableData[i].one+'</td>' +
+                '<td>'+tableData[i].two+'</td>' +
+                '<td>'+tableData[i].t+'</td>' +
+                '<td>'+tableData[i].four+'</td>' +
+                '<td>'+tableData[i].five+'</td>' +
+                '<td>'+tableData[i].six+'</td>' +
+                '</tr>';
+        }
+        $("#monitorNetDevT").find("tbody").html(html);
+    }
+    //渲染监控链路
+    function renderMonitorLink(tableData) {
+        var html = "";
+        for(var j=0,m=tableData.length;j<m;j++){
+            html+= '<tr class="text-c">' +
+                '<td>'+tableData[j].one+'</td>' +
+                '<td>'+tableData[j].two+'</td>' +
+                '<td>'+tableData[j].t+'</td>' +
+                '<td>'+tableData[j].four+'</td>' +
+                '<td>'+tableData[j].five+'</td>' +
+                '<td>'+tableData[j].six+'</td>' +
+                '<td>'+tableData[j].seven+'</td>' +
+                '<td>'+tableData[j].eight+'</td>' +
+                '</tr>';
+        }
+        $("#monitorLinkT").find("tbody").html(html);
+    }
+    //渲染监控服务
+    function renderMonitorServer(tableData) {
+        var html = "";
+        for(var j=0,m=tableData.length;j<m;j++){
+            html+= '<tr class="text-c">' +
+                '<td>'+tableData[j].one+'</td>' +
+                '<td>'+tableData[j].two+'</td>' +
+                '<td>'+tableData[j].t+'</td>' +
+                '<td>'+tableData[j].four+'</td>' +
+                '<td>'+tableData[j].five+'</td>' +
+                '<td>'+tableData[j].six+'</td>' +
+                '<td>'+tableData[j].seven+'</td>' +
+                '<td>'+tableData[j].eight+'</td>' +
+                '</tr>';
+        }
+        $("#monitorServer").find("tbody").html(html);
+    }
+
     //创建拓扑监控
     function createTopoMonEvent() {
         $("#createTopoMon").unbind("click").click(function(){
