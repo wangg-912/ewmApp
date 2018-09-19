@@ -215,8 +215,33 @@ function initTopo(canvasID, stage, scene) {
         //debugger;
         loadDataByNode(node);
     }
+    /**
+     * 框架父节点的拖拽事件处理
+     * @param event
+     * @return {boolean}
+     */
+    GW.dragHandler = function (event) {
+        var disX=0,disY=0;
+        if(!event.target) return false;
+        var e = event || window.event;
+        // X轴坐标
+        var _X = e.clientX - disX;
+        // Y轴坐标
+        var _Y =e.clientY - disY;
+
+        _X = (_X < 0) ? 0:_X;
+        _Y = (_Y < 0) ? 0:_Y;
+        var node = event.target;
+        node.x = e.x-disX;
+        node.y = e.y-disY;
+       // node.setLocation(_X,_Y);
+        resetPostion(node,_X,_Y)
+    }
     /*分支持久化*/
     GW._branch = {
+        bChilds:{
+
+        },
         "center": null,
         "edge": [],
         "_b": {},
@@ -236,6 +261,13 @@ function initTopo(canvasID, stage, scene) {
     GW.pieTimer = null;
     GW.serveTimer = null;
     return GW.scene;
+}
+function resetPostion(node,_X,_Y) {
+    console.log(node)
+    var _id = node.primeKey;
+    var obj = GW._branch.bChilds[_id];
+
+
 }
 function loadDataByNode(node) {
     var req = "";
@@ -329,9 +361,11 @@ function createBackgroundNode(obj) {
     node.zIndex = 1;
     node.type = obj.type;
     node.primeKey = obj.id.PrimeKey;
+    GW._branch.bChilds[(obj.id.PrimeKey)] = [];
     node.name = obj.id.Name;
     node.setImage("/resource/branchCloud.png");
     node.addEventListener("dbclick", GW.dbClick);
+    node.addEventListener("mouseup",GW.dragHandler);
     GW.scene.add(node);
 
 }
@@ -360,6 +394,7 @@ function createEdgeDeviceNode(obj) {
     })
         //edgeNode.alarm = obj.alert;
     GW._branch._b[(obj.id.PrimeKey)] = edgeNode;
+    GW._branch.bChilds[(obj.id.PrimeKey)].push(edgeNode);
     GW.scene.add(edgeNode);
     obj.devType ? createBranchDriveIconNode(obj, edgeNode) : null;
     //obj.id.PrimeKey == 0 ? GW._branch.center = edgeNode :GW._branch.edge.push(edgeNode);
@@ -381,6 +416,7 @@ function createAutoIconNode(obj) {
     iconNode.addEventListener("mouseout", function(event) {
         removeTopoTipHandler();
     })
+    GW._branch.bChilds[(obj.id.PrimeKey)].push(iconNode);
     obj.id.PrimeKey == 0 ? iconNode.setImage("/resource/logic/AreaDevice/louyu.png") : iconNode.setImage("/resource/logic/AreaDevice/wlzx.png");
     //container.add(iconNode);
     GW.scene.add(iconNode);
@@ -415,6 +451,7 @@ function createBranchDriveIconNode(obj, ccNode) {
                 }).show();
             }
         });
+        GW._branch.bChilds[(obj.id.PrimeKey)].push(driveNode);
         createDevLink(ccNode, driveNode);
         //container.add(driveNode);
         GW.scene.add(driveNode);
